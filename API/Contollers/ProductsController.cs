@@ -1,6 +1,8 @@
 ﻿using Application.Features.Products.Commands.CreateProduct;
 using Application.Features.Products.Dtos;
+using Application.Features.Products.Models;
 using Application.Features.Products.Queries;
+using Application.RequestParameters;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +14,13 @@ namespace API.Contollers
     public class ProductsController : BaseController
     {
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery]GetAllProductsQueryRequest getAllProductsQueryRequest)
+        public async Task<IActionResult> GetAll([FromQuery]Pagination pagination)
         {
-            List<GetAllProductsDto> result = await Mediator.Send(getAllProductsQueryRequest);
+            GetAllProductQueryRequest getAllProductsQueryRequest = new()
+            {
+                Pagination = pagination,
+            };
+            GetAllProductsModel result = await Mediator.Send(getAllProductsQueryRequest);
             return Ok(result);
         }
 

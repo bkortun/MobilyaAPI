@@ -1,5 +1,6 @@
 ﻿using Application.Features.Products.Commands.CreateProduct;
 using Application.Features.Products.Dtos;
+using Application.Features.Products.Models;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -18,6 +19,7 @@ namespace Application.Features.Products.Profiles
             CreateMap<Product,CreateProductCommandRequest>().ReverseMap();
 
             CreateMap<Product, GetAllProductsDto>().ReverseMap();
+            CreateMap<IList<Product>, GetAllProductsModel>().ReverseMap();
         }
     }
 }

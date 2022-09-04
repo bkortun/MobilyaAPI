@@ -1,14 +1,15 @@
 ﻿using Application.Features.Products.Dtos;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Products.Queries
+namespace Application.Features.Products.Models
 {
-    public class GetAllProductsQueryRequest:IRequest<List<GetAllProductsDto>>
+    public class GetAllProductsModel
     {
+        public int TotalCount { get; set; }
+        public object Items { get; set; }
     }
 }
