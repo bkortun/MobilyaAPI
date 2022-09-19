@@ -1,7 +1,10 @@
 ﻿using Application.Features.Products.Commands.CreateProduct;
+using Application.Features.Products.Commands.DeleteProduct;
+using Application.Features.Products.Commands.UpdateProduct;
 using Application.Features.Products.Dtos;
 using Application.Features.Products.Models;
 using AutoMapper;
+using Core.Persistence.Paging;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,11 +18,19 @@ namespace Application.Features.Products.Profiles
     {
         public MappingProfiles()
         {
-            CreateMap<Product,CreatedProductDto>().ReverseMap();
+            CreateMap<Product,CreateProductDto>().ReverseMap();
             CreateMap<Product,CreateProductCommandRequest>().ReverseMap();
 
-            CreateMap<Product, GetAllProductsDto>().ReverseMap();
-            CreateMap<IList<Product>, GetAllProductsModel>().ReverseMap();
+            CreateMap<Product, ListProductDto>().ReverseMap();
+            CreateMap<IPaginate<Product>, ListProductsModel>().ReverseMap();
+
+            CreateMap<Product, UpdateProductCommandRequest>().ReverseMap();
+            CreateMap<Product, UpdateProductDto>().ReverseMap();
+
+            CreateMap<Product, DeleteProductCommandRequest>().ReverseMap();
+            CreateMap<Product, DeleteProductDto>().ReverseMap();
+
+            CreateMap<Product, ListByIdProductDto>().ReverseMap();
         }
     }
 }

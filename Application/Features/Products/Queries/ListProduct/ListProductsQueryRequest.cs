@@ -1,6 +1,6 @@
 ﻿using Application.Features.Products.Dtos;
 using Application.Features.Products.Models;
-using Application.RequestParameters;
+using Core.Application.Requests;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.Queries
 {
-    public class GetAllProductQueryRequest:IRequest<GetAllProductsModel>
+    public class GetAllProductQueryRequest:IRequest<ListProductsModel>
     {
-        public Pagination? Pagination { get; set; }
+        public PageRequest PageRequest { get; set; }
     }
 }

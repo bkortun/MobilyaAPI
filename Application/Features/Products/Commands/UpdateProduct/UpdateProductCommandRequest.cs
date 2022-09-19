@@ -1,17 +1,18 @@
-﻿using Core.Persistence.Repositories;
+﻿using Application.Features.Products.Dtos;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Application.Features.Products.Commands.UpdateProduct
 {
-    public class Product:Entity
+    public class UpdateProductCommandRequest:IRequest<UpdateProductDto>
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public float Price { get; set; }
         public long Stock { get; set; }
-       
     }
 }

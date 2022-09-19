@@ -1,5 +1,5 @@
-﻿using Domain.Entities;
-using Domain.Entities.Common;
+﻿using Core.Persistence.Repositories;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,9 +15,23 @@ namespace Persistence.Contexts
 
         public DbSet<Product> Products { get; set; }
 
+        // Todo Status'ün başlangıç değeri true olarak ayarlanıcak
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>(a =>
+            {
+                a.ToTable("Products").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.Name).HasColumnName("Name");
+                a.Property(p => p.Price).HasColumnName("Price");
+                a.Property(p => p.Stock).HasColumnName("Stock");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status");
+            });
+        }
 
-
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             var datas = ChangeTracker.Entries<Entity>();
 
@@ -25,14 +39,14 @@ namespace Persistence.Contexts
             {
                 _ = data.State switch
                 {
-                    //Todo: veri girişi yapıldığında status true olacak
                     EntityState.Added => data.Entity.CreatedDate = DateTime.UtcNow,
                     EntityState.Modified => data.Entity.UpdatedDate = DateTime.UtcNow,
                     _ => DateTime.UtcNow
                 };
             }
-
-            return await base.SaveChangesAsync(cancellationToken);
+                return base.SaveChangesAsync(cancellationToken);
         }
+
+
     }
 }

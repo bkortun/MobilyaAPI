@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.Commands.CreateProduct
 {
-    public class CreateProductCommandRequest:IRequest<CreatedProductDto>
+    public class CreateProductCommandRequest:IRequest<CreateProductDto>
     {
         public string Name { get; set; }
         public float Price { get; set; }

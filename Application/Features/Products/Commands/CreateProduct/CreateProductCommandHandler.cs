@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.Commands.CreateProduct
 {
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest, CreatedProductDto>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest, CreateProductDto>
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
@@ -22,12 +22,11 @@ namespace Application.Features.Products.Commands.CreateProduct
             _mapper = mapper;
         }
 
-        public async Task<CreatedProductDto> Handle(CreateProductCommandRequest request, CancellationToken cancellationToken)
+        public async Task<CreateProductDto> Handle(CreateProductCommandRequest request, CancellationToken cancellationToken)
         {
             Product product= _mapper.Map<Product>(request);
-            bool success=await _productRepository.AddAsync(product);
-            if (success) await _productRepository.SaveAsync();
-            CreatedProductDto createdProductDto=_mapper.Map<CreatedProductDto>(product);
+            Product addedProduct=await _productRepository.AddAsync(product);
+            CreateProductDto createdProductDto=_mapper.Map<CreateProductDto>(addedProduct);
             return createdProductDto;
         }
     }

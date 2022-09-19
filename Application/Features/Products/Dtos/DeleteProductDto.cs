@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.Dtos
 {
-    public class GetAllProductsDto
+    public class DeleteProductDto
     {
-        
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }
