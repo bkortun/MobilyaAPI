@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.Models
 {
-    public class ListProductsModel:BasePageableModel
+    public class ListProductModel:BasePageableModel
     {
         public IList<ListProductDto> Items { get; set; }
     }

@@ -22,7 +22,7 @@ namespace Application.Features.Products.Profiles
             CreateMap<Product,CreateProductCommandRequest>().ReverseMap();
 
             CreateMap<Product, ListProductDto>().ReverseMap();
-            CreateMap<IPaginate<Product>, ListProductsModel>().ReverseMap();
+            CreateMap<IPaginate<Product>, ListProductModel>().ReverseMap();
 
             CreateMap<Product, UpdateProductCommandRequest>().ReverseMap();
             CreateMap<Product, UpdateProductDto>().ReverseMap();

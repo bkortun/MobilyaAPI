@@ -5,7 +5,9 @@ using Application.Features.Products.Dtos;
 using Application.Features.Products.Models;
 using Application.Features.Products.Queries;
 using Application.Features.Products.Queries.ListByIdProduct;
+using Application.Features.Products.Queries.ListDynamicProduct;
 using Core.Application.Requests;
+using Core.Persistence.Dynamic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Contollers
@@ -21,7 +23,7 @@ namespace API.Contollers
             {
                 PageRequest = pageRequest,
             };
-            ListProductsModel result = await Mediator.Send(getAllProductsQueryRequest);
+            ListProductModel result = await Mediator.Send(getAllProductsQueryRequest);
             return Ok(result);
         }
 
@@ -32,14 +34,15 @@ namespace API.Contollers
             return Ok(result);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ListDynamic([FromRoute] PageRequest pageRequest)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ListDynamic([FromQuery] PageRequest pageRequest, [FromBody] Dynamic dynamic)
         {
             ListDynamicProductQueryRequest listDynamicProductQueryRequest = new()
             {
                 PageRequest = pageRequest,
+                Dynamic = dynamic
             };
-            ListDynamicProductDto result = await Mediator.Send(listDynamicProductQueryRequest);
+            ListProductModel result = await Mediator.Send(listDynamicProductQueryRequest);
             return Ok(result);
         }
 
