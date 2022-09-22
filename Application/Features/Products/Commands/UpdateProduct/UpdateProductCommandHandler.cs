@@ -24,7 +24,7 @@ namespace Application.Features.Products.Commands.UpdateProduct
 
         public async Task<UpdateProductDto> Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
         {
-            //Todo ürünü güncellerken createddate bozuk geliyor ve güncellemek için tüm propları talep ediyor
+            //Todo Şuanki sistemde update işlemi yapılacak iken tüm proplar requestten alınmalı, nullable özelliği yapılıcak
             Product product = _mapper.Map<Product>(request);
             Product updatedProduct = await _productRepository.UpdateAsync(product);
             UpdateProductDto updateProductDto = _mapper.Map<UpdateProductDto>(updatedProduct);

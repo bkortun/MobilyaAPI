@@ -11,13 +11,14 @@ using System.Threading.Tasks;
 
 namespace Persistence
 {
-    public static class ServiceRegistration
+    public static class PersistenceServiceRegistration
     {
         public static void AddPersistenceServices(this IServiceCollection service)
         {
             service.AddDbContext<MobilyaDbContext>(options => options.UseNpgsql(Configuration.ConnectionString));
 
             service.AddScoped<IProductRepository,ProductRepository>();
+            service.AddScoped<IUserRepository,UserRepository>();
         }
     }
 }

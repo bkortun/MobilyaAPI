@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.Features.Users.Rules;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,14 @@ using System.Threading.Tasks;
 
 namespace Application
 {
-    public static class ServiceRegestration
+    public static class ApplicationServiceRegestration
     {
         public static void AddApplicationServices(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
+
+            services.AddScoped<UserBusinessRules>();
         }
     }
 }
