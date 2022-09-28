@@ -31,6 +31,7 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.HasMany(p=>p.ProductImages).WithOne(p=>p.Product).HasForeignKey(p=>p.ProductId);
             });
 
             modelBuilder.Entity<User>(a =>
@@ -45,7 +46,7 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.HasMany(p => p.UserOperationClaims);
+                a.HasMany(p => p.UserOperationClaims).WithOne(p=>p.User).HasForeignKey(p=>p.UserId);
             });
 
             modelBuilder.Entity<OperationClaim>(a => {
@@ -55,7 +56,7 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.HasMany(p => p.UserOperationClaims);
+                a.HasMany(p => p.UserOperationClaims).WithOne(p=>p.OperationClaim).HasForeignKey(p=>p.OperationClaimId);
             });
 
             modelBuilder.Entity<UserOperationClaim>(a => {
@@ -66,9 +67,44 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.HasOne(p => p.User);
-                a.HasOne(p => p.OperationClaim);
+                a.HasOne(p => p.User).WithMany(p=>p.UserOperationClaims).HasForeignKey(p=>p.UserId);
+                a.HasOne(p => p.OperationClaim).WithMany(p => p.UserOperationClaims).HasForeignKey(p => p.OperationClaimId);
+            });
 
+            modelBuilder.Entity<Domain.Entities.File>(a => {
+                a.ToTable("Files").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.Name).HasColumnName("Name");
+                a.Property(p => p.Path).HasColumnName("Path");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.HasOne(p => p.Image).WithOne(p => p.File).HasForeignKey<Image>(p=>p.FileId);
+            });
+
+            modelBuilder.Entity<Image>(a => {
+                a.ToTable("Images").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.FileId).HasColumnName("FileId");
+                a.Property(p => p.Showcase).HasColumnName("Showcase");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.HasOne(p=>p.File).WithOne(p=>p.Image).HasForeignKey<Image>(p => p.FileId);
+                a.HasMany(p=>p.ProductImages).WithOne(p=>p.Image).HasForeignKey(p=>p.ImageId);
+            });
+
+            modelBuilder.Entity<ProductImage>(a =>
+            {
+                a.ToTable("ProductImages").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.ProductId).HasColumnName("ProductId");
+                a.Property(p => p.ImageId).HasColumnName("ImageId");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.HasOne(p=>p.Image).WithMany(p=>p.ProductImages).HasForeignKey(p=>p.ImageId);
+                a.HasOne(p=>p.Product).WithMany(p=>p.ProductImages).HasForeignKey(p=>p.ProductId);
             });
         }
 
