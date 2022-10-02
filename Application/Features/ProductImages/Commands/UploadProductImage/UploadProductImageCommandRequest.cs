@@ -1,5 +1,4 @@
-﻿using Application.Features.ProductImage.Dtos;
-using Application.Features.ProductImages.Models;
+﻿using Application.Features.ProductImages.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -8,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.ProductImage.Commands.UploadProductImage
+namespace Application.Features.ProductImages.Commands.UploadProductImage
 {
     public class UploadProductImageCommandRequest : IRequest<UploadProductImageModel>
     {

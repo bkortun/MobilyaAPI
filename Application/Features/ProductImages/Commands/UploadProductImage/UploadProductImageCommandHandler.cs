@@ -1,5 +1,4 @@
-﻿using Application.Features.ProductImage.Dtos;
-using Application.Features.ProductImages.Models;
+﻿using Application.Features.ProductImages.Models;
 using Application.Features.ProductImages.Rules;
 using Application.Services.Repositories;
 using Domain.Entities;
@@ -11,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.ProductImage.Commands.UploadProductImage
+namespace Application.Features.ProductImages.Commands.UploadProductImage
 {
     public class UploadProductImageCommandHandler : IRequestHandler<UploadProductImageCommandRequest, UploadProductImageModel>
     {

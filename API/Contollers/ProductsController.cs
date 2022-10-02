@@ -1,8 +1,8 @@
-﻿using Application.Features.ProductImage.Commands.UploadProductImage;
-using Application.Features.ProductImage.Dtos;
-using Application.Features.ProductImages.Commands.DeleteProductImage;
+﻿using Application.Features.ProductImages.Commands.DeleteProductImage;
+using Application.Features.ProductImages.Commands.UploadProductImage;
 using Application.Features.ProductImages.Dtos;
 using Application.Features.ProductImages.Models;
+using Application.Features.ProductImages.Queries.GetByProductProductImage;
 using Application.Features.Products.Commands.CreateProduct;
 using Application.Features.Products.Commands.DeleteProduct;
 using Application.Features.Products.Commands.UpdateProduct;
@@ -80,12 +80,12 @@ namespace API.Contollers
             return Ok();
         }
 
-        //[HttpGet("[action]/{Id}")]
-        //public async Task<IActionResult> GetProductImages([FromRoute] GetProductImageQueryRequest getProductImageQueryRequest)
-        //{
-        //    List<GetProductImageQueryResponse> response = await Mediator.Send(getProductImageQueryRequest);
-        //    return Ok(response);
-        //}
+        [HttpGet("[action]/{ProductId}")]
+        public async Task<IActionResult> GetProductImages([FromRoute] GetByProductProductImageQueryRequest getByProductProductImageQueryRequest)
+        {
+            GetByProductProductImageModel response = await Mediator.Send(getByProductProductImageQueryRequest);
+            return Ok(response);
+        }
 
         [HttpDelete("[action]/{FileId}")]
         public async Task<IActionResult> DeleteProductImage([FromRoute] DeleteProductImageCommandRequest deleteProductImageCommandsRequest)
