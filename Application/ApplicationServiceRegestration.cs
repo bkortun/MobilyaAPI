@@ -1,4 +1,5 @@
-﻿using Application.Features.Users.Rules;
+﻿using Application.Features.ProductImages.Rules;
+using Application.Features.Users.Rules;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -18,6 +19,7 @@ namespace Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddScoped<UserBusinessRules>();
+            services.AddScoped<ProductImageBusinessRules>();
         }
     }
 }

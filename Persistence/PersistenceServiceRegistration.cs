@@ -19,6 +19,9 @@ namespace Persistence
 
             service.AddScoped<IProductRepository,ProductRepository>();
             service.AddScoped<IUserRepository,UserRepository>();
+            service.AddScoped<IFileRepository,FileRepository>();
+            service.AddScoped<IProductImageRepository,ProductImageRepository>();
+            service.AddScoped<IImageRepository,ImageRepository>();
         }
     }
 }

@@ -1,4 +1,9 @@
-﻿using Application.Features.Products.Commands.CreateProduct;
+﻿using Application.Features.ProductImage.Commands.UploadProductImage;
+using Application.Features.ProductImage.Dtos;
+using Application.Features.ProductImages.Commands.DeleteProductImage;
+using Application.Features.ProductImages.Dtos;
+using Application.Features.ProductImages.Models;
+using Application.Features.Products.Commands.CreateProduct;
 using Application.Features.Products.Commands.DeleteProduct;
 using Application.Features.Products.Commands.UpdateProduct;
 using Application.Features.Products.Dtos;
@@ -65,6 +70,28 @@ namespace API.Contollers
         {
             DeleteProductDto result = await Mediator.Send(deleteProductCommandRequest);
             return Ok(result);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ProductImageUpload([FromQuery] UploadProductImageCommandRequest uploadProductImageCommandRequest)
+        {
+            uploadProductImageCommandRequest.Files = Request.Form.Files;
+            UploadProductImageModel response =await Mediator.Send(uploadProductImageCommandRequest);
+            return Ok();
+        }
+
+        //[HttpGet("[action]/{Id}")]
+        //public async Task<IActionResult> GetProductImages([FromRoute] GetProductImageQueryRequest getProductImageQueryRequest)
+        //{
+        //    List<GetProductImageQueryResponse> response = await Mediator.Send(getProductImageQueryRequest);
+        //    return Ok(response);
+        //}
+
+        [HttpDelete("[action]/{FileId}")]
+        public async Task<IActionResult> DeleteProductImage([FromRoute] DeleteProductImageCommandRequest deleteProductImageCommandsRequest)
+        {
+            DeleteProductImageDto response = await Mediator.Send(deleteProductImageCommandsRequest);
+            return Ok(response);
         }
     }
 }
