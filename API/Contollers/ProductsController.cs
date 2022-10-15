@@ -77,7 +77,7 @@ namespace API.Contollers
         {
             uploadProductImageCommandRequest.Files = Request.Form.Files;
             UploadProductImageModel response =await Mediator.Send(uploadProductImageCommandRequest);
-            return Ok();
+            return Ok(response);
         }
 
         [HttpGet("[action]/{ProductId}")]

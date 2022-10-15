@@ -10,6 +10,5 @@ namespace Application.Services.Repositories
 {
     public interface IUserRepository:IAsyncRepository<User>
     {
-        IList<OperationClaim> GetClaims(User user);
     }
 }

@@ -74,6 +74,25 @@ namespace Persistence.Contexts
                 a.HasOne(p => p.OperationClaim).WithMany(p => p.UserOperationClaims).HasForeignKey(p => p.OperationClaimId);
             });
 
+            modelBuilder.Entity<RefreshToken>(a =>
+            {
+                a.ToTable("RefreshTokens").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.UserId).HasColumnName("UserId");
+                a.Property(p => p.Token).HasColumnName("Token");
+                a.Property(p => p.Expires).HasColumnName("Expires");
+                a.Property(p => p.Created).HasColumnName("Created");
+                a.Property(p => p.CreatedByIp).HasColumnName("CreatedByIp");
+                a.Property(p => p.Revoked).HasColumnName("Revoked");
+                a.Property(p => p.RevokedByIp).HasColumnName("RevokedByIp");
+                a.Property(p => p.ReplacedByToken).HasColumnName("ReplacedByToken");
+                a.Property(p => p.ReasonRevoked).HasColumnName("ReasonRevoked");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status");
+                a.HasOne(u => u.User);
+            });
+
             modelBuilder.Entity<Domain.Entities.File>(a => {
                 a.ToTable("Files").HasKey(k => k.Id);
                 a.Property(p => p.Id).HasColumnName("Id");

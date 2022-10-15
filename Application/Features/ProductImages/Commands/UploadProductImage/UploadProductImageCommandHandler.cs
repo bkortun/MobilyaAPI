@@ -1,5 +1,7 @@
-﻿using Application.Features.ProductImages.Models;
+﻿using Application.Features.ProductImages.Dtos;
+using Application.Features.ProductImages.Models;
 using Application.Features.ProductImages.Rules;
+using Application.Services.FileService;
 using Application.Services.Repositories;
 using Domain.Entities;
 using MediatR;
@@ -15,25 +17,25 @@ namespace Application.Features.ProductImages.Commands.UploadProductImage
     public class UploadProductImageCommandHandler : IRequestHandler<UploadProductImageCommandRequest, UploadProductImageModel>
     {
         private readonly IProductImageRepository _productImageRepository;
-        private readonly IProductRepository _productRepository;
         private readonly IFileRepository _fileRepository;
+        private readonly IFileService _fileService;
         private readonly IImageRepository _imageRepository;
         private readonly ProductImageBusinessRules _businessRules;
 
-        public UploadProductImageCommandHandler(IProductImageRepository productImageRepository, IProductRepository productRepository, IFileRepository fileRepository, IImageRepository imageRepository, ProductImageBusinessRules businessRules)
+        public UploadProductImageCommandHandler(IProductImageRepository productImageRepository, IFileRepository fileRepository, IImageRepository imageRepository, ProductImageBusinessRules businessRules, IFileService fileService)
         {
             _productImageRepository = productImageRepository;
-            _productRepository = productRepository;
             _fileRepository = fileRepository;
             _imageRepository = imageRepository;
             _businessRules = businessRules;
+            _fileService = fileService;
         }
 
         public async Task<UploadProductImageModel> Handle(UploadProductImageCommandRequest request, CancellationToken cancellationToken)
         {
            Product product= await _businessRules.CheckRequestedProductIsNotNull(request.ProductId);
             //Todo Refactor edilecek
-            List<Domain.Entities.File> files = await _fileRepository.UploadAsync("product-images", request.Files);
+            List<Domain.Entities.File> files = await _fileService.UploadAsync("product-images", request.Files);
             foreach (var file in files)
             {
                 await _fileRepository.AddAsync(file);
@@ -47,6 +49,7 @@ namespace Application.Features.ProductImages.Commands.UploadProductImage
                 };
                 await _productImageRepository.AddAsync(productImage);
             }
+            //todo response a el atılcak
             return new();
         }
     }

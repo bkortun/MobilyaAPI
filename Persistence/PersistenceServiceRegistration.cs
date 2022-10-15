@@ -18,7 +18,12 @@ namespace Persistence
             service.AddDbContext<MobilyaDbContext>(options => options.UseNpgsql(Configuration.ConnectionString));
 
             service.AddScoped<IProductRepository,ProductRepository>();
+
             service.AddScoped<IUserRepository,UserRepository>();
+            service.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
+            service.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
+            service.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+
             service.AddScoped<IFileRepository,FileRepository>();
             service.AddScoped<IProductImageRepository,ProductImageRepository>();
             service.AddScoped<IImageRepository,ImageRepository>();

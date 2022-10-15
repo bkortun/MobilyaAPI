@@ -1,5 +1,7 @@
 ﻿using Application.Features.ProductImages.Rules;
 using Application.Features.Users.Rules;
+using Application.Services.AuthService;
+using Application.Services.FileService;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -20,6 +22,9 @@ namespace Application
 
             services.AddScoped<UserBusinessRules>();
             services.AddScoped<ProductImageBusinessRules>();
+
+            services.AddScoped<IAuthService,AuthManager>();
+            services.AddScoped<IFileService,FileManager>();
         }
     }
 }

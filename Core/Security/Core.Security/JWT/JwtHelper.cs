@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using Core.Security.Encryption;
 using Core.Security.Entities;
 using Core.Security.Extensions;
@@ -33,6 +34,19 @@ namespace Core.Security.JWT
                 Token = token,
                 Expiration = _accessTokenExpiration,
             };
+        }
+
+        public RefreshToken CreateRefreshToken(User user, string ipAddress)
+        {
+            RefreshToken refreshToken = new()
+            {
+                UserId = user.Id,
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                Expires = DateTime.UtcNow.AddDays(7),
+                Created = DateTime.UtcNow,
+                CreatedByIp = ipAddress
+            };
+            return refreshToken;
         }
 
         public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, User user, SigningCredentials signingCredentials, IList<OperationClaim> operationClaims)

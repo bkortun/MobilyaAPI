@@ -1,5 +1,6 @@
 ﻿using Application.Features.Users.Commands.RegisterUser;
 using AutoMapper;
+using Core.Security.Dtos;
 using Core.Security.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Application.Features.Users.Profiles
     {
         public MappingProfiles()
         {
-            CreateMap<User, RegisterUserCommandRequest>().ReverseMap();
+            CreateMap<User, UserForRegisterDto>().ReverseMap();
         }
     }
 }
