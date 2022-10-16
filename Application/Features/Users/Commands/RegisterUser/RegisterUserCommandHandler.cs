@@ -40,9 +40,11 @@ namespace Application.Features.Users.Commands.RegisterUser
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
             //Todo PasswordConfirm işlemi yapılacak
-            //Todo Geliştirilebilir mi kontrol et user.CreatedDate = DateTime.UtcNow;   user.Status = true;
-            user.CreatedDate = DateTime.UtcNow;
-            user.Status = true;
+
+
+            //Sistem otomatik ekliyor
+            //user.CreatedDate = DateTime.UtcNow;
+            //user.Status = true;
 
             User addedUser = await _userRepository.AddAsync(user);
             AccessToken createdAccessToken =await _authService.CreateAccessTokenAsync(addedUser);

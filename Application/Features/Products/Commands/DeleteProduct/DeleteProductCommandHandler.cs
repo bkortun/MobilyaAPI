@@ -24,6 +24,7 @@ namespace Application.Features.Products.Commands.DeleteProduct
 
         public async Task<DeleteProductDto> Handle(DeleteProductCommandRequest request, CancellationToken cancellationToken)
         {
+            //Todo entity mevcutmu kontrolü yapılacak
             Product product =await _productRepository.GetAsync(p=>p.Id==Guid.Parse(request.Id));
             Product deletedProduct=await _productRepository.DeleteAsync(product);
             DeleteProductDto deleteProductDto = _mapper.Map<DeleteProductDto>(deletedProduct);

@@ -46,5 +46,7 @@ namespace Application.Services.AuthService
             RefreshToken createdRefreshToken= _tokenHelper.CreateRefreshToken(user, ipAddress);
             return Task.FromResult(createdRefreshToken);
         }
+
+        //Todo Kullanıcı şifre değiştirme operasyonu eklenecek ve email/otp ile kontrol edilecek
     }
 }

@@ -1,4 +1,8 @@
-﻿using Application.Features.Users.Commands.LoginUser;
+﻿using Application.Features.OperationClaims.Commands.CreateOperationClaim;
+using Application.Features.OperationClaims.Commands.DeleteOperationClaim;
+using Application.Features.OperationClaims.Dtos;
+using Application.Features.Users.Commands.AddOperationClaim;
+using Application.Features.Users.Commands.LoginUser;
 using Application.Features.Users.Commands.RegisterUser;
 using Application.Features.Users.Dtos;
 using Core.Security.Dtos;
@@ -43,6 +47,27 @@ namespace API.Contollers
         {
             CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.UtcNow.AddDays(7) };
             Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> CreateOperationClaim([FromBody] CreateOperationClaimCommandRequest createOperationClaimCommandRequest)
+        {
+            CreateOperationClaimDto response = await Mediator.Send(createOperationClaimCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> DeleteOperationClaim([FromQuery] DeleteOperationClaimCommandRequest deleteOperationClaimCommandRequest)
+        {
+            DeleteOperationClaimDto response = await Mediator.Send(deleteOperationClaimCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AddOperationClaim([FromBody] AddOperationClaimCommandRequest addOperationClaimCommandRequest)
+        {
+            AddOperationClaimDto response = await Mediator.Send(addOperationClaimCommandRequest);
+            return Ok(response);
         }
     }
 }

@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\OperationClaims\Queries\" />
     <Folder Include="Features\Products\Contants\" />
     <Folder Include="Features\Products\Rules\" />
   </ItemGroup>
