@@ -1,6 +1,8 @@
 ﻿using Application.Features.OperationClaims.Commands.CreateOperationClaim;
 using Application.Features.OperationClaims.Commands.DeleteOperationClaim;
 using Application.Features.OperationClaims.Dtos;
+using Application.Features.OperationClaims.Models;
+using Application.Features.OperationClaims.Queries.ListOperationClaim;
 using Application.Features.Users.Commands.AddOperationClaim;
 using Application.Features.Users.Commands.LoginUser;
 using Application.Features.Users.Commands.RegisterUser;
@@ -64,9 +66,16 @@ namespace API.Contollers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> AddOperationClaim([FromBody] AddOperationClaimCommandRequest addOperationClaimCommandRequest)
+        public async Task<IActionResult> AddOperationClaimToUser([FromBody] AddOperationClaimCommandRequest addOperationClaimCommandRequest)
         {
             AddOperationClaimDto response = await Mediator.Send(addOperationClaimCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> ListOperationClaim([FromQuery] ListOperationClaimQueryRequest listOperationClaimQueryRequest)
+        {
+            ListOperationClaimModel response = await Mediator.Send(listOperationClaimQueryRequest);
             return Ok(response);
         }
     }

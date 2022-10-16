@@ -50,6 +50,7 @@ namespace Persistence.Contexts
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
                 a.HasMany(p => p.UserOperationClaims).WithOne(p=>p.User).HasForeignKey(p=>p.UserId);
+                a.HasMany(p => p.RefreshTokens).WithOne(p=>p.User).HasForeignKey(p=>p.UserId);
             });
 
             modelBuilder.Entity<OperationClaim>(a => {
@@ -59,7 +60,6 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.HasMany(p => p.UserOperationClaims).WithOne(p=>p.OperationClaim).HasForeignKey(p=>p.OperationClaimId);
             });
 
             modelBuilder.Entity<UserOperationClaim>(a => {
@@ -71,7 +71,6 @@ namespace Persistence.Contexts
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
                 a.HasOne(p => p.User).WithMany(p=>p.UserOperationClaims).HasForeignKey(p=>p.UserId);
-                a.HasOne(p => p.OperationClaim).WithMany(p => p.UserOperationClaims).HasForeignKey(p => p.OperationClaimId);
             });
 
             modelBuilder.Entity<RefreshToken>(a =>

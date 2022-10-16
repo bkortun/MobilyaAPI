@@ -81,7 +81,7 @@ namespace API.Contollers
         }
 
         [HttpGet("[action]/{ProductId}")]
-        public async Task<IActionResult> GetProductImages([FromRoute] GetByProductProductImageQueryRequest getByProductProductImageQueryRequest)
+        public async Task<IActionResult> ListProductImages([FromRoute] GetByProductProductImageQueryRequest getByProductProductImageQueryRequest)
         {
             GetByProductProductImageModel response = await Mediator.Send(getByProductProductImageQueryRequest);
             return Ok(response);

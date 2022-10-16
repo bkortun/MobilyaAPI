@@ -2,6 +2,7 @@
 using Application.Features.Users.Rules;
 using Application.Services.AuthService;
 using Application.Services.FileService;
+using Core.Application.Pipelines.Authorization;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -22,6 +23,10 @@ namespace Application
 
             services.AddScoped<UserBusinessRules>();
             services.AddScoped<ProductImageBusinessRules>();
+
+
+            services.AddTransient(typeof(IPipelineBehavior<,>),typeof(AuthorizationBehavior<,>));
+
 
             services.AddScoped<IAuthService,AuthManager>();
             services.AddScoped<IFileService,FileManager>();
