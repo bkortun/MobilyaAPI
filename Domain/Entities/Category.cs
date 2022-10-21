@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Product:Entity
+    public class Category:Entity
     {
         public string Name { get; set; }
-        public float Price { get; set; }
-        public long Stock { get; set; }
-
-        public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ProductCategory> ProductCategories { get; set; }
-        public virtual ICollection<BasketItem> BasketItems { get; set; }
 
     }
 }

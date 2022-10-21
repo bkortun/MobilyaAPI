@@ -24,11 +24,11 @@ namespace API.Contollers
         [HttpGet]
         public async Task<IActionResult> List([FromQuery]PageRequest pageRequest)
         {
-            GetAllProductQueryRequest getAllProductsQueryRequest = new()
+            ListProductsQueryRequest listProductsQueryRequest = new()
             {
                 PageRequest = pageRequest,
             };
-            ListProductModel result = await Mediator.Send(getAllProductsQueryRequest);
+            ListProductModel result = await Mediator.Send(listProductsQueryRequest);
             return Ok(result);
         }
 

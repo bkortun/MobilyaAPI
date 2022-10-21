@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.Queries
 {
-    public class ListProductQueryHandler : IRequestHandler<GetAllProductQueryRequest, ListProductModel>
+    public class ListProductQueryHandler : IRequestHandler<ListProductsQueryRequest, ListProductModel>
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
@@ -24,7 +24,7 @@ namespace Application.Features.Products.Queries
             _mapper = mapper;
         }
 
-        public async Task<ListProductModel> Handle(GetAllProductQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ListProductModel> Handle(ListProductsQueryRequest request, CancellationToken cancellationToken)
         {
             IPaginate<Product> products = await _productRepository.GetListAsync(index:request.PageRequest.Page,size:request.PageRequest.PageSize);
             ListProductModel getAllProductsModel = _mapper.Map<ListProductModel>(products);

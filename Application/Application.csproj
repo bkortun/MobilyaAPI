@@ -23,6 +23,38 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\BasketItems\Commands\CreateBasketItem\" />
+    <Folder Include="Features\BasketItems\Commands\DeleteBasketItem\" />
+    <Folder Include="Features\BasketItems\Commands\UpdateBasketItem\" />
+    <Folder Include="Features\BasketItems\Dtos\" />
+    <Folder Include="Features\BasketItems\Models\" />
+    <Folder Include="Features\BasketItems\Profiles\" />
+    <Folder Include="Features\BasketItems\Queries\ListBasketItem\" />
+    <Folder Include="Features\BasketItems\Rules\" />
+    <Folder Include="Features\Baskets\Commands\CreateBasket\" />
+    <Folder Include="Features\Baskets\Commands\DeleteBasket\" />
+    <Folder Include="Features\Baskets\Commands\UpdateBasket\" />
+    <Folder Include="Features\Baskets\Dtos\" />
+    <Folder Include="Features\Baskets\Models\" />
+    <Folder Include="Features\Baskets\Profiles\" />
+    <Folder Include="Features\Baskets\Queries\ListBasket\" />
+    <Folder Include="Features\Baskets\Rules\" />
+    <Folder Include="Features\Categories\Commands\CreateCategory\" />
+    <Folder Include="Features\Categories\Commands\DeleteCategory\" />
+    <Folder Include="Features\Categories\Commands\UpdateCategory\" />
+    <Folder Include="Features\Categories\Dtos\" />
+    <Folder Include="Features\Categories\Models\" />
+    <Folder Include="Features\Categories\Queries\ListCategory\" />
+    <Folder Include="Features\Categories\Rules\" />
+    <Folder Include="Features\Categories\Profiles\" />
+    <Folder Include="Features\Orders\Commands\CreateOrder\" />
+    <Folder Include="Features\Orders\Commands\DeleteOrder\" />
+    <Folder Include="Features\Orders\Commands\UpdateOrder\" />
+    <Folder Include="Features\Orders\Dtos\" />
+    <Folder Include="Features\Orders\Models\" />
+    <Folder Include="Features\Orders\Profiles\" />
+    <Folder Include="Features\Orders\Queries\ListOrder\" />
+    <Folder Include="Features\Orders\Rules\" />
     <Folder Include="Features\Products\Contants\" />
     <Folder Include="Features\Products\Rules\" />
   </ItemGroup>

@@ -19,6 +19,13 @@ namespace Persistence
 
             service.AddScoped<IProductRepository,ProductRepository>();
 
+            service.AddScoped<ICategoryRepository, CategoryRepository>();
+            service.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+
+            service.AddScoped<IBasketRepository, BasketRepository>();
+            service.AddScoped<IBasketItemRepository, BasketItemRepository>();
+            service.AddScoped<IOrderRepository, OrderRepository>();
+
             service.AddScoped<IUserRepository,UserRepository>();
             service.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
             service.AddScoped<IOperationClaimRepository, OperationClaimRepository>();

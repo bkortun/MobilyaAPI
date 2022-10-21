@@ -15,12 +15,17 @@ namespace Persistence.Contexts
         public MobilyaDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public DbSet<Domain.Entities.File> Files { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +40,31 @@ namespace Persistence.Contexts
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
                 a.HasMany(p=>p.ProductImages).WithOne(p=>p.Product).HasForeignKey(p=>p.ProductId);
+                a.HasMany(p => p.ProductCategories).WithOne(p => p.Product).HasForeignKey(p => p.ProductId);
+            });
+
+            modelBuilder.Entity<Category>(a =>
+            {
+                a.ToTable("Categories").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.Name).HasColumnName("Name");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.HasMany(p => p.ProductCategories).WithOne(p => p.Category).HasForeignKey(p => p.CategoryId);
+            });
+
+            modelBuilder.Entity<ProductCategory>(a =>
+            {
+                a.ToTable("ProductCategories").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.ProductId).HasColumnName("ProductId");
+                a.Property(p => p.CategoryId).HasColumnName("CategoryId");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.HasOne(p => p.Category).WithMany(p => p.ProductCategories).HasForeignKey(p => p.CategoryId);
+                a.HasOne(p => p.Product).WithMany(p => p.ProductCategories).HasForeignKey(p => p.ProductId);
             });
 
             modelBuilder.Entity<User>(a =>
@@ -126,6 +156,46 @@ namespace Persistence.Contexts
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
                 a.HasOne(p=>p.Image).WithMany(p=>p.ProductImages).HasForeignKey(p=>p.ImageId);
                 a.HasOne(p=>p.Product).WithMany(p=>p.ProductImages).HasForeignKey(p=>p.ProductId);
+            });
+
+            modelBuilder.Entity<Basket>(a =>
+            {
+                a.ToTable("Baskets").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.UserId).HasColumnName("UserId");
+                a.Property(p => p.TotalProduct).HasColumnName("TotalProduct");
+                a.Property(p => p.TotalPrice).HasColumnName("TotalPrice");
+                a.Property(p => p.CreatedDate).HasColumnName("CreateDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.HasOne(p => p.Order).WithOne(p => p.Basket).HasForeignKey<Order>(p => p.BasketId);
+                a.HasOne(p => p.User);
+                a.HasMany(p => p.BasketItems).WithOne(p => p.Basket).HasForeignKey(p => p.BasketId);
+            });
+
+            modelBuilder.Entity<BasketItem>(a =>
+            {
+                a.ToTable("BasketItems").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.ProductId).HasColumnName("ProductId");
+                a.Property(p => p.BasketId).HasColumnName("BasketId");
+                a.Property(p => p.Quantity).HasColumnName("Quantity");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.HasOne(p => p.Basket).WithMany(p => p.BasketItems).HasForeignKey(p => p.BasketId);
+                a.HasOne(p => p.Product).WithMany(p => p.BasketItems).HasForeignKey(p => p.ProductId);
+            });
+
+            modelBuilder.Entity<Order>(a =>
+            {
+                a.ToTable("Orders").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.BasketId).HasColumnName("BasketId");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.HasOne(p => p.Basket).WithOne(p => p.Order).HasForeignKey<Order>(p => p.BasketId);
             });
         }
 

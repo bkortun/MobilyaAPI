@@ -1,5 +1,4 @@
-﻿using Application.Features.Products.Dtos;
-using Application.Features.Products.Models;
+﻿using Application.Features.Categories.Models;
 using Core.Application.Requests;
 using MediatR;
 using System;
@@ -8,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Products.Queries
+namespace Application.Features.Categories.Queries.ListCategory
 {
-    public class ListProductsQueryRequest : IRequest<ListProductModel>
+    public class ListCategoryQueryRequest:IRequest<ListCategoryModel>
     {
         public PageRequest PageRequest { get; set; }
     }
