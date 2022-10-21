@@ -10,6 +10,7 @@ namespace Application.Features.Users.Commands.AddOperationClaim
 {
     public class AddOperationClaimCommandRequest : IRequest<AddOperationClaimDto>
     {
+        //Todo email ve operationClaimName idler ile değişecek
         public string Email { get; set; }
         public string OperationClaimName { get; set; }
     }

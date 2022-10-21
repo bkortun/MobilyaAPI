@@ -3,6 +3,7 @@ using Application.Features.ProductImages.Commands.UploadProductImage;
 using Application.Features.ProductImages.Dtos;
 using Application.Features.ProductImages.Models;
 using Application.Features.ProductImages.Queries.GetByProductProductImage;
+using Application.Features.Products.Commands.AddCategory;
 using Application.Features.Products.Commands.CreateProduct;
 using Application.Features.Products.Commands.DeleteProduct;
 using Application.Features.Products.Commands.UpdateProduct;
@@ -55,6 +56,13 @@ namespace API.Contollers
         public async Task<IActionResult> Add([FromBody] CreateProductCommandRequest createProductCommandRequest)
         {
             CreateProductDto result = await Mediator.Send(createProductCommandRequest);
+            return Created("", result);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AddCategory([FromBody] AddCategoryCommandRequest addCategoryCommandRequest)
+        {
+            AddCategoryDto result = await Mediator.Send(addCategoryCommandRequest);
             return Created("", result);
         }
 
