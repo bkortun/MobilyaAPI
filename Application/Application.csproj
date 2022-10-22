@@ -23,13 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\BasketItems\Commands\CreateBasketItem\" />
-    <Folder Include="Features\BasketItems\Commands\DeleteBasketItem\" />
-    <Folder Include="Features\BasketItems\Commands\UpdateBasketItem\" />
-    <Folder Include="Features\BasketItems\Dtos\" />
-    <Folder Include="Features\BasketItems\Models\" />
-    <Folder Include="Features\BasketItems\Profiles\" />
-    <Folder Include="Features\BasketItems\Queries\ListBasketItem\" />
     <Folder Include="Features\BasketItems\Rules\" />
     <Folder Include="Features\Baskets\Commands\CreateBasket\" />
     <Folder Include="Features\Baskets\Commands\DeleteBasket\" />
