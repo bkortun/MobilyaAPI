@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.ProductImages.Models
 {
-    public class GetByProductProductImageModel: BasePageableModel
+    public class ListProductProductImageModel: BasePageableModel
     {
         public IList<GetByProductProductImageDto> Items { get; set; }
     }

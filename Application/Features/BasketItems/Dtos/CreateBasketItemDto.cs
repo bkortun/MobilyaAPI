@@ -9,7 +9,7 @@ namespace Application.Features.BasketItems.Dtos
     public class CreateBasketItemDto
     {
         public string Id { get; set; }
-        public string ProductName { get; set; }
+        public string ProductId { get; set; }
         public string Quantity { get; set; }
         public string BasketId { get; set; }
     }

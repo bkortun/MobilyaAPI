@@ -10,6 +10,6 @@ namespace Application.Features.BasketItems.Models
 {
     public class ListBasketItemModel:BasePageableModel
     {
-        public ListBasketItemDto Items { get; set; }
+        public IList<ListBasketItemDto> Items { get; set; }
     }
 }

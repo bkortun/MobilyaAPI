@@ -21,10 +21,10 @@ namespace Application.Features.BasketItems.Commands.UpdateBasketItem
             _basketItemRepository = basketItemRepository;
             _mapper = mapper;
         }
-
+        
         public async Task<UpdateBasketItemDto> Handle(UpdateBasketItemCommandRequest request, CancellationToken cancellationToken)
         {
-            BasketItem basketItem = await _basketItemRepository.GetAsync(b=>b.Id==Guid.Parse(request.Id));
+            BasketItem basketItem = _mapper.Map<BasketItem>(request);
             BasketItem updatedBasketItem = await _basketItemRepository.UpdateAsync(basketItem);
             UpdateBasketItemDto updateBasketItemDto = _mapper.Map<UpdateBasketItemDto>(updatedBasketItem);
             return updateBasketItemDto;

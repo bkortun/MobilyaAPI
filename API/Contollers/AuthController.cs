@@ -22,12 +22,12 @@ namespace API.Contollers
         [HttpPost("[action]")]
         public async Task<IActionResult> Login([FromBody] UserForLoginDto userForLoginDto)
         {
-            LoginUserCommandRequest loginUserCommandRequest = new()
+            LoginUserCommandRequest request = new()
             {
                 UserForLoginDto = userForLoginDto,
                 IpAddress = GetIpAddress(),
             };
-            LoginUserDto loginUserDto = await Mediator.Send(loginUserCommandRequest);
+            LoginUserDto loginUserDto = await Mediator.Send(request);
             SetRefreshTokenToCookie(loginUserDto.RefreshToken);
             return Ok(loginUserDto.AccessToken);
         }
@@ -35,12 +35,12 @@ namespace API.Contollers
         [HttpPost("[action]")]
         public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
         {
-            RegisterUserCommandRequest registerAuthCommandRequest = new()
+            RegisterUserCommandRequest request = new()
             {
                 UserForRegisterDto = userForRegisterDto,
                 IpAddress = GetIpAddress(),
             };
-            RegisterUserDto registerUserDto = await Mediator.Send(registerAuthCommandRequest);
+            RegisterUserDto registerUserDto = await Mediator.Send(request);
             SetRefreshTokenToCookie(registerUserDto.RefreshToken);
             return Created("", registerUserDto.AccessToken);
         }
@@ -52,30 +52,30 @@ namespace API.Contollers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreateOperationClaim([FromBody] CreateOperationClaimCommandRequest createOperationClaimCommandRequest)
+        public async Task<IActionResult> CreateOperationClaim([FromBody] CreateOperationClaimCommandRequest request)
         {
-            CreateOperationClaimDto response = await Mediator.Send(createOperationClaimCommandRequest);
+            CreateOperationClaimDto response = await Mediator.Send(request);
             return Ok(response);
         }
 
         [HttpDelete("[action]")]
-        public async Task<IActionResult> DeleteOperationClaim([FromQuery] DeleteOperationClaimCommandRequest deleteOperationClaimCommandRequest)
+        public async Task<IActionResult> DeleteOperationClaim([FromQuery] DeleteOperationClaimCommandRequest request)
         {
-            DeleteOperationClaimDto response = await Mediator.Send(deleteOperationClaimCommandRequest);
+            DeleteOperationClaimDto response = await Mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> AddOperationClaimToUser([FromBody] AddOperationClaimCommandRequest addOperationClaimCommandRequest)
+        public async Task<IActionResult> AddOperationClaimToUser([FromBody] AddOperationClaimCommandRequest request)
         {
-            AddOperationClaimDto response = await Mediator.Send(addOperationClaimCommandRequest);
+            AddOperationClaimDto response = await Mediator.Send(request);
             return Ok(response);
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> ListOperationClaim([FromQuery] ListOperationClaimQueryRequest listOperationClaimQueryRequest)
+        public async Task<IActionResult> ListOperationClaim([FromQuery] ListOperationClaimQueryRequest request)
         {
-            ListOperationClaimModel response = await Mediator.Send(listOperationClaimQueryRequest);
+            ListOperationClaimModel response = await Mediator.Send(request);
             return Ok(response);
         }
     }

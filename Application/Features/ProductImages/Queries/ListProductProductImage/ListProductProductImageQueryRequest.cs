@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.ProductImages.Queries.GetByProductProductImage
+namespace Application.Features.ProductImages.Queries.ListProductProductImage
 {
-    public class GetByProductProductImageQueryRequest:IRequest<GetByProductProductImageModel>
+    public class ListProductProductImageQueryRequest:IRequest<ListProductProductImageModel>
     {
         public string ProductId { get; set; }
     }

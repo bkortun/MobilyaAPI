@@ -2,7 +2,7 @@
 using Application.Features.ProductImages.Commands.UploadProductImage;
 using Application.Features.ProductImages.Dtos;
 using Application.Features.ProductImages.Models;
-using Application.Features.ProductImages.Queries.GetByProductProductImage;
+using Application.Features.ProductImages.Queries.ListProductProductImage;
 using Application.Features.Products.Commands.AddCategory;
 using Application.Features.Products.Commands.CreateProduct;
 using Application.Features.Products.Commands.DeleteProduct;
@@ -25,80 +25,80 @@ namespace API.Contollers
         [HttpGet]
         public async Task<IActionResult> List([FromQuery]PageRequest pageRequest)
         {
-            ListProductsQueryRequest listProductsQueryRequest = new()
+            ListProductsQueryRequest request = new()
             {
                 PageRequest = pageRequest,
             };
-            ListProductModel result = await Mediator.Send(listProductsQueryRequest);
+            ListProductModel result = await Mediator.Send(request);
             return Ok(result);
         }
 
         [HttpGet("{Id}")]
-        public async Task<IActionResult> ListById([FromRoute] ListByIdProductQueryRequest listByIdProductQueryRequest)
+        public async Task<IActionResult> ListById([FromRoute] ListByIdProductQueryRequest request)
         {
-            ListByIdProductDto result = await Mediator.Send(listByIdProductQueryRequest);
+            ListByIdProductDto result = await Mediator.Send(request);
             return Ok(result);
         }
 
         [HttpPost("[action]")]
         public async Task<IActionResult> ListDynamic([FromQuery] PageRequest pageRequest, [FromBody] Dynamic dynamic)
         {
-            ListDynamicProductQueryRequest listDynamicProductQueryRequest = new()
+            ListDynamicProductQueryRequest request = new()
             {
                 PageRequest = pageRequest,
                 Dynamic = dynamic
             };
-            ListProductModel result = await Mediator.Send(listDynamicProductQueryRequest);
+            ListProductModel result = await Mediator.Send(request);
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] CreateProductCommandRequest createProductCommandRequest)
+        public async Task<IActionResult> Add([FromBody] CreateProductCommandRequest request)
         {
-            CreateProductDto result = await Mediator.Send(createProductCommandRequest);
+            CreateProductDto result = await Mediator.Send(request);
             return Created("", result);
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> AddCategory([FromBody] AddCategoryCommandRequest addCategoryCommandRequest)
+        public async Task<IActionResult> AddCategory([FromBody] AddCategoryCommandRequest request)
         {
-            AddCategoryDto result = await Mediator.Send(addCategoryCommandRequest);
+            AddCategoryDto result = await Mediator.Send(request);
             return Created("", result);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateProductCommandRequest updateProductCommandRequest)
+        public async Task<IActionResult> Update([FromBody] UpdateProductCommandRequest request)
         {
-            UpdateProductDto result = await Mediator.Send(updateProductCommandRequest);
+            UpdateProductDto result = await Mediator.Send(request);
             return Ok(result);
         }
 
         [HttpDelete("{Id}")]
-        public async Task<IActionResult> Delete([FromRoute] DeleteProductCommandRequest deleteProductCommandRequest)
+        public async Task<IActionResult> Delete([FromRoute] DeleteProductCommandRequest request)
         {
-            DeleteProductDto result = await Mediator.Send(deleteProductCommandRequest);
+            DeleteProductDto result = await Mediator.Send(request);
             return Ok(result);
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> ProductImageUpload([FromQuery] UploadProductImageCommandRequest uploadProductImageCommandRequest)
+        public async Task<IActionResult> ProductImageUpload([FromQuery] UploadProductImageCommandRequest request)
         {
-            uploadProductImageCommandRequest.Files = Request.Form.Files;
-            UploadProductImageModel response =await Mediator.Send(uploadProductImageCommandRequest);
+            request.Files = Request.Form.Files;
+            UploadProductImageModel response =await Mediator.Send(request);
             return Ok(response);
         }
 
         [HttpGet("[action]/{ProductId}")]
-        public async Task<IActionResult> ListProductImages([FromRoute] GetByProductProductImageQueryRequest getByProductProductImageQueryRequest)
+        public async Task<IActionResult> ListProductImages([FromRoute] ListProductProductImageQueryRequest request)
         {
-            GetByProductProductImageModel response = await Mediator.Send(getByProductProductImageQueryRequest);
+            ListProductProductImageModel response = await Mediator.Send(request);
             return Ok(response);
         }
 
         [HttpDelete("[action]/{FileId}")]
-        public async Task<IActionResult> DeleteProductImage([FromRoute] DeleteProductImageCommandRequest deleteProductImageCommandsRequest)
+        public async Task<IActionResult> DeleteProductImage([FromRoute] DeleteProductImageCommandRequest request)
         {
-            DeleteProductImageDto response = await Mediator.Send(deleteProductImageCommandsRequest);
+            DeleteProductImageDto response = await Mediator.Send(request);
             return Ok(response);
         }
     }

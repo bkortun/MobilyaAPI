@@ -5,6 +5,7 @@ using AutoMapper;
 using Core.Persistence.Paging;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,10 @@ namespace Application.Features.BasketItems.Queries.ListBasketItem
 
         public async Task<ListBasketItemModel> Handle(ListBasketItemQueryRequest request, CancellationToken cancellationToken)
         {
-            IPaginate<BasketItem> basketItems = await _basketItemRepository.GetListAsync(index:request.PageRequest.Page,size:request.PageRequest.PageSize);
+            IPaginate<BasketItem> basketItems = await _basketItemRepository.GetListAsync(index:request.PageRequest.Page,
+                size:request.PageRequest.PageSize,include:p=>p.Include(p=>p.Product));
+            ListBasketItemModel listBasketItemModel = _mapper.Map<ListBasketItemModel>(basketItems);
+            return listBasketItemModel;
         }
     }
 }

@@ -12,24 +12,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.ProductImages.Queries.GetByProductProductImage
+namespace Application.Features.ProductImages.Queries.ListProductProductImage
 {
-    public class GetByProductProductImageQueryHandler : IRequestHandler<GetByProductProductImageQueryRequest, GetByProductProductImageModel>
+    public class ListProductProductImageQueryHandler : IRequestHandler<ListProductProductImageQueryRequest, ListProductProductImageModel>
     {
         private readonly IProductImageRepository _productImageRepository;
         private readonly IMapper _mapper;
 
-        public GetByProductProductImageQueryHandler(IProductImageRepository productImageRepository, IMapper mapper)
+        public ListProductProductImageQueryHandler(IProductImageRepository productImageRepository, IMapper mapper)
         {
             _productImageRepository = productImageRepository;
             _mapper = mapper;
         }
 
-        public async Task<GetByProductProductImageModel> Handle(GetByProductProductImageQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ListProductProductImageModel> Handle(ListProductProductImageQueryRequest request, CancellationToken cancellationToken)
         {
 
             IPaginate<ProductImage> productImages = await _productImageRepository.GetListAsync(predicate: p=>p.ProductId==Guid.Parse(request.ProductId),include:m=>m.Include(p=>p.Image).ThenInclude(i=>i.File));
-            GetByProductProductImageModel getByProductProductImageModel = _mapper.Map<GetByProductProductImageModel>(productImages);
+            ListProductProductImageModel getByProductProductImageModel = _mapper.Map<ListProductProductImageModel>(productImages);
             return getByProductProductImageModel;
         }
     }

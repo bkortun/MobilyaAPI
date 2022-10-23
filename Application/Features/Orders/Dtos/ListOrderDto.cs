@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.BasketItems.Dtos
+namespace Application.Features.Orders.Dtos
 {
-    public class UpdateBasketItemDto
+    public class ListOrderDto
     {
         public string Id { get; set; }
-        public string ProductId { get; set; }
-        public string Quantity { get; set; }
         public string BasketId { get; set; }
     }
 }
