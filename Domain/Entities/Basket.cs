@@ -12,7 +12,9 @@ namespace Domain.Entities
     {
         public Guid UserId { get; set; }
         public int TotalProduct { get; set; }
-        public int TotalPrice { get; set; }
+        public float TotalPrice { get; set; }
+        public bool IsActive { get; set; }
+        //Todo aynı ürün sepete eklendiğinde quantity artmalı
 
         public virtual User User { get; set; }
         public virtual Order Order { get; set; }

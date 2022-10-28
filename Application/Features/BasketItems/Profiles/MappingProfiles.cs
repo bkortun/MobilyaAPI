@@ -1,5 +1,6 @@
 ﻿using Application.Features.BasketItems.Commands.CreateBasketItem;
 using Application.Features.BasketItems.Commands.UpdateBasketItem;
+using Application.Features.BasketItems.Commands.UpdateBasketItemQuantity;
 using Application.Features.BasketItems.Dtos;
 using Application.Features.BasketItems.Models;
 using AutoMapper;
@@ -27,6 +28,9 @@ namespace Application.Features.BasketItems.Profiles
 
             CreateMap<IPaginate<BasketItem>, ListBasketItemModel>().ReverseMap();
             CreateMap<BasketItem, ListBasketItemDto>().ForMember(c => c.ProductName, opt => opt.MapFrom(p => p.Product.Name)).ReverseMap(); ;
+        
+            CreateMap<IPaginate<BasketItem>,ListByBasketModel>().ReverseMap();
+            CreateMap<BasketItem,ListByBasketDto>().ForMember(c=>c.ProductName,opt=>opt.MapFrom(p=>p.Product.Name)).ReverseMap();
         }
     }
 }

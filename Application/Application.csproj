@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\BasketItems\Rules\" />
     <Folder Include="Features\Baskets\Rules\" />
     <Folder Include="Features\Categories\Commands\CreateCategory\" />
     <Folder Include="Features\Categories\Commands\DeleteCategory\" />

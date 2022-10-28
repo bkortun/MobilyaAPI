@@ -1,6 +1,8 @@
-﻿using Application.Features.ProductImages.Rules;
+﻿using Application.Features.BasketItems.Rules;
+using Application.Features.ProductImages.Rules;
 using Application.Features.Users.Rules;
 using Application.Services.AuthService;
+using Application.Services.BasketService;
 using Application.Services.FileService;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
@@ -23,6 +25,7 @@ namespace Application
 
             services.AddScoped<UserBusinessRules>();
             services.AddScoped<ProductImageBusinessRules>();
+            services.AddScoped<BasketItemBusinessRules>();
 
 
             services.AddTransient(typeof(IPipelineBehavior<,>),typeof(AuthorizationBehavior<,>));
@@ -30,6 +33,7 @@ namespace Application
 
             services.AddScoped<IAuthService,AuthManager>();
             services.AddScoped<IFileService,FileManager>();
+            services.AddScoped<IBasketService,BasketManager>();
         }
     }
 }

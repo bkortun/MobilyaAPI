@@ -4,6 +4,7 @@ using Application.Features.Baskets.Commands.UpdateBasket;
 using Application.Features.Baskets.Dtos;
 using Application.Features.Baskets.Models;
 using Application.Features.Baskets.Queries.ListBasket;
+using Application.Features.Baskets.Queries.ListByUserBasket;
 using Core.Application.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,14 @@ namespace API.Contollers
             ListBasketModel result = await Mediator.Send(request);
             return Ok(result);
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> ListByUser([FromQuery] ListByUserBasketQueryRequest request)
+        {
+            ListByUserBasketDto result = await Mediator.Send(request);
+            return Ok(result);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateBasketCommandRequest request)

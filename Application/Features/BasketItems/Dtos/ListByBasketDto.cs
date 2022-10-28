@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.BasketItems.Dtos
 {
-    public class UpdateBasketItemDto
+    public class ListByBasketDto
     {
         public string Id { get; set; }
-        public string ProductId { get; set; }
+        public string ProductName { get; set; }
         public int Quantity { get; set; }
         public string BasketId { get; set; }
     }

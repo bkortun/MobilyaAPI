@@ -10,7 +10,7 @@ namespace Application.Features.BasketItems.Dtos
     {
         public string Id { get; set; }
         public string ProductId { get; set; }
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
         public string BasketId { get; set; }
     }
 }

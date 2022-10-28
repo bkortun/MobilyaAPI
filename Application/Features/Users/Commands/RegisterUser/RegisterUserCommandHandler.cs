@@ -1,6 +1,7 @@
 ﻿using Application.Features.Users.Dtos;
 using Application.Features.Users.Rules;
 using Application.Services.AuthService;
+using Application.Services.BasketService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Security.Entities;
@@ -19,15 +20,17 @@ namespace Application.Features.Users.Commands.RegisterUser
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
+        private readonly IBasketService _basketService;
         private readonly IMapper _mapper;
         private readonly UserBusinessRules _businessRules;
 
-        public RegisterUserCommandHandler(IUserRepository userRepository, IMapper mapper, UserBusinessRules businessRules, IAuthService authService)
+        public RegisterUserCommandHandler(IUserRepository userRepository, IMapper mapper, UserBusinessRules businessRules, IAuthService authService, IBasketService basketService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _businessRules = businessRules;
             _authService = authService;
+            _basketService = basketService;
         }
 
         public async Task<RegisterUserDto> Handle(RegisterUserCommandRequest request, CancellationToken cancellationToken)
@@ -50,6 +53,7 @@ namespace Application.Features.Users.Commands.RegisterUser
             AccessToken createdAccessToken =await _authService.CreateAccessTokenAsync(addedUser);
             RefreshToken refreshToken = await _authService.CreateRefreshTokenAsync(addedUser, request.IpAddress);
             RefreshToken addedRefreshToken = await _authService.AddRefreshTokenAsync(refreshToken);
+            await _basketService.CreateNewActiveBasket(addedUser);
             return new()
             {
                 AccessToken = createdAccessToken,

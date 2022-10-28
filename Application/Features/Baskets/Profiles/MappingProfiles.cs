@@ -29,6 +29,8 @@ namespace Application.Features.Baskets.Profiles
 
             CreateMap<Basket, ListBasketDto>().ForMember(p=>p.Email,opt=>opt.MapFrom(p=>p.User.Email)).ReverseMap();
             CreateMap<ListBasketModel, IPaginate<Basket>>().ReverseMap();
+
+            CreateMap<ListByUserBasketDto,Basket>().ReverseMap();
         }
     }
 }

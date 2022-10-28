@@ -6,13 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.BasketItems.Commands.UpdateBasketItem
+namespace Application.Features.BasketItems.Commands.UpdateBasketItemQuantity
 {
-    public class UpdateBasketItemCommandRequest:IRequest<UpdateBasketItemDto>
+    public class UpdateBasketItemQuantityCommandRequest:IRequest<UpdateBasketItemQuantityDto>
     {
         public string Id { get; set; }
-        public string ProductId { get; set; }
-        public string BasketId { get; set; }
         public int Quantity { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.BasketItems.Dtos
 {
-    public class UpdateBasketItemDto
+    public class UpdateBasketItemQuantityDto
     {
         public string Id { get; set; }
         public string ProductId { get; set; }

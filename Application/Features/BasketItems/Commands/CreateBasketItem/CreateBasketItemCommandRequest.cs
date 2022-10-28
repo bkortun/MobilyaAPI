@@ -12,6 +12,6 @@ namespace Application.Features.BasketItems.Commands.CreateBasketItem
     {
         public string ProductId { get; set; }
         public string BasketId { get; set; }
-        public string Quantity { get; set; }    
+        public int Quantity { get; set; }    
     }
 }
