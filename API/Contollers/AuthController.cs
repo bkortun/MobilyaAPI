@@ -7,6 +7,8 @@ using Application.Features.Users.Commands.AddOperationClaim;
 using Application.Features.Users.Commands.LoginUser;
 using Application.Features.Users.Commands.RegisterUser;
 using Application.Features.Users.Dtos;
+using Application.Features.Users.Models;
+using Application.Features.Users.Queries.ListOperationClaimByUserEmail;
 using Core.Security.Dtos;
 using Core.Security.Entities;
 using Core.Security.JWT;
@@ -76,6 +78,13 @@ namespace API.Contollers
         public async Task<IActionResult> ListOperationClaim([FromQuery] ListOperationClaimQueryRequest request)
         {
             ListOperationClaimModel response = await Mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> ListOperationClaimByUserEmail([FromQuery] ListOperationClaimByUserEmailQueryRequest request)
+        {
+            ListOperationClaimByUserEmailModel response = await Mediator.Send(request);
             return Ok(response);
         }
     }
