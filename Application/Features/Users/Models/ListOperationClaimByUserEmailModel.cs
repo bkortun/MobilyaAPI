@@ -10,6 +10,6 @@ namespace Application.Features.Users.Models
 {
     public class ListOperationClaimByUserEmailModel:BasePageableModel
     {
-        public IList<ListOperationClaimByUserEmailDto> items;
+        public IList<ListOperationClaimByUserEmailDto> Items { get; set; }
     }
 }

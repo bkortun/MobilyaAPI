@@ -6,9 +6,11 @@ using Application.Features.OperationClaims.Queries.ListOperationClaim;
 using Application.Features.Users.Commands.AddOperationClaim;
 using Application.Features.Users.Commands.LoginUser;
 using Application.Features.Users.Commands.RegisterUser;
+using Application.Features.Users.Commands.RemoveOperationClaim;
 using Application.Features.Users.Dtos;
 using Application.Features.Users.Models;
 using Application.Features.Users.Queries.ListOperationClaimByUserEmail;
+using Core.Application.Requests;
 using Core.Security.Dtos;
 using Core.Security.Entities;
 using Core.Security.JWT;
@@ -74,9 +76,17 @@ namespace API.Contollers
             return Ok(response);
         }
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> ListOperationClaim([FromQuery] ListOperationClaimQueryRequest request)
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> RemoveOperationClaimFromUser([FromQuery] RemoveOperationClaimCommandRequest request)
         {
+            RemoveOperationClaimDto response = await Mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> ListOperationClaim([FromQuery] PageRequest pageRequest)
+        {
+            ListOperationClaimQueryRequest request = new() { PageRequest=pageRequest };
             ListOperationClaimModel response = await Mediator.Send(request);
             return Ok(response);
         }
