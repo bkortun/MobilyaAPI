@@ -62,7 +62,7 @@ namespace API.Contollers
             return Ok(response);
         }
 
-        [HttpDelete("[action]")]
+        [HttpDelete("[action]/{Id}")]
         public async Task<IActionResult> DeleteOperationClaim([FromQuery] DeleteOperationClaimCommandRequest request)
         {
             DeleteOperationClaimDto response = await Mediator.Send(request);
@@ -76,8 +76,8 @@ namespace API.Contollers
             return Ok(response);
         }
 
-        [HttpDelete("[action]")]
-        public async Task<IActionResult> RemoveOperationClaimFromUser([FromQuery] RemoveOperationClaimCommandRequest request)
+        [HttpDelete("[action]/{Id}")]
+        public async Task<IActionResult> RemoveOperationClaimFromUser([FromRoute] RemoveOperationClaimCommandRequest request)
         {
             RemoveOperationClaimDto response = await Mediator.Send(request);
             return Ok(response);

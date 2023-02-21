@@ -12,6 +12,6 @@ namespace Application.Features.ProductImages.Commands.UploadProductImage
     public class UploadProductImageCommandRequest : IRequest<UploadProductImageModel>
     {
         public string ProductId { get; set; }
-        public IFormFileCollection Files { get; set; }
+        public IFormFileCollection? Files { get; set; }
     }
 }
