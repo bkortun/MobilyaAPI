@@ -3,7 +3,6 @@ using Application.Features.ProductImages.Rules;
 using Application.Features.Users.Rules;
 using Application.Services.AuthService;
 using Application.Services.BasketService;
-using Application.Services.FileService;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +31,6 @@ namespace Application
 
 
             services.AddScoped<IAuthService,AuthManager>();
-            services.AddScoped<IFileService,FileManager>();
             services.AddScoped<IBasketService,BasketManager>();
         }
     }

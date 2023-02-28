@@ -2,6 +2,8 @@ using Application;
 using Core.Security;
 using Core.Security.Encryption;
 using Core.Security.JWT;
+using Infrastructure;
+using Infrastructure.Storage.Local;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -14,8 +16,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSecurityServices();
+
 builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices();
 builder.Services.AddPersistenceServices();
+
+builder.Services.AddStorage<LocalStorageManager>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.WithOrigins("http://localhost:4200").WithOrigins("https://localhost:4200").AllowAnyHeader().AllowAnyMethod()));
 
@@ -72,6 +78,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 app.UseAuthentication();
 
