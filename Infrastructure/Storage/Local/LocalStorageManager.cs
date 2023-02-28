@@ -41,7 +41,7 @@ namespace Infrastructure.Storage.Local
             {
                 string fileNewName = await FileRenameAsync(file.FileName);
                 bool result = await CopyFileAsync($"{uploadPath}//{fileNewName}", file);
-                Domain.Entities.File addedFile = new() { Name = fileNewName, Path = $"wwwroot//{path}//{fileNewName}" };
+                Domain.Entities.File addedFile = new() { Name = fileNewName, Path = $"{path}//{fileNewName}" };
                 files.Add(addedFile);
 
                 results.Add(result);
