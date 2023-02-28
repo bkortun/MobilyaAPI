@@ -38,7 +38,9 @@ namespace Application.Features.ProductImages.Commands.UploadProductImage
             List<Domain.Entities.File> files = await _storageService.UploadAsync("product-images", request.Files);
             foreach (var file in files)
             {
+                file.Storage = _storageService.StorageType;
                 await _fileRepository.AddAsync(file);
+
                 Image addedImage = new() { FileId = file.Id };
                 await _imageRepository.AddAsync(addedImage);
 
