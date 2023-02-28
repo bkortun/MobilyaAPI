@@ -127,8 +127,9 @@ namespace Persistence.Contexts
                 a.Property(p => p.Id).HasColumnName("Id");
                 a.Property(p => p.Name).HasColumnName("Name");
                 a.Property(p => p.Path).HasColumnName("Path");
+                a.Property(p => p.Storage).HasColumnName("Storage");
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
-                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Ignore(p=>p.UpdatedDate);
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
                 a.HasOne(p => p.Image).WithOne(p => p.File).HasForeignKey<Image>(p=>p.FileId);
             });

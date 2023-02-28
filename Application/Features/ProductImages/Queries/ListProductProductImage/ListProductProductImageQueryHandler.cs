@@ -4,6 +4,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Core.Persistence.Paging;
 using Domain.Entities;
+using Infrastructure.Storage.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,12 +18,14 @@ namespace Application.Features.ProductImages.Queries.ListProductProductImage
     public class ListProductProductImageQueryHandler : IRequestHandler<ListProductProductImageQueryRequest, ListProductProductImageModel>
     {
         private readonly IProductImageRepository _productImageRepository;
+        private readonly IStorageService _storageService;
         private readonly IMapper _mapper;
 
-        public ListProductProductImageQueryHandler(IProductImageRepository productImageRepository, IMapper mapper)
+        public ListProductProductImageQueryHandler(IProductImageRepository productImageRepository, IMapper mapper, IStorageService storageService)
         {
             _productImageRepository = productImageRepository;
             _mapper = mapper;
+            _storageService = storageService;
         }
 
         public async Task<ListProductProductImageModel> Handle(ListProductProductImageQueryRequest request, CancellationToken cancellationToken)
