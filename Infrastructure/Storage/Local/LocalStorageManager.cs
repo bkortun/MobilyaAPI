@@ -18,7 +18,7 @@ namespace Infrastructure.Storage.Local
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task DeleteFileAsync(string path, string fileName) => System.IO.File.Delete(path);
+        public async Task DeleteFileAsync(string path, string fileName) => System.IO.File.Delete($"wwwroot/{path}");
 
         public List<string> GetFilesName(string path)
         {

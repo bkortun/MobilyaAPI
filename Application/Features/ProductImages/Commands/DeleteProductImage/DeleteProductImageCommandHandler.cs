@@ -30,7 +30,7 @@ namespace Application.Features.ProductImages.Commands.DeleteProductImage
         public async Task<DeleteProductImageDto> Handle(DeleteProductImageCommandRequest request, CancellationToken cancellationToken)
         {
             //todo Requesten file id alındı 
-            Domain.Entities.File file= await _businessRules.CheckRequestedFileIsNotNull(request.FileId);
+            Domain.Entities.File file= await _businessRules.CheckRequestedFilesNotNull(request.FileId);
             Domain.Entities.File deletedFile = await _fileRepository.DeleteAsync(file);
             await _storageService.DeleteFileAsync(file.Path, file.Name);
             DeleteProductImageDto deleteProductImageDto =_mapper.Map<DeleteProductImageDto>(deletedFile);

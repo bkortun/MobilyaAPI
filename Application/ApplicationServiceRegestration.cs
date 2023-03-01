@@ -1,4 +1,5 @@
 ﻿using Application.Features.BasketItems.Rules;
+using Application.Features.Files.Rules;
 using Application.Features.ProductImages.Rules;
 using Application.Features.Users.Rules;
 using Application.Services.AuthService;
@@ -25,6 +26,7 @@ namespace Application
             services.AddScoped<UserBusinessRules>();
             services.AddScoped<ProductImageBusinessRules>();
             services.AddScoped<BasketItemBusinessRules>();
+            services.AddScoped<FileBusinessRules>();
 
 
             services.AddTransient(typeof(IPipelineBehavior<,>),typeof(AuthorizationBehavior<,>));

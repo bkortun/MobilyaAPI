@@ -94,12 +94,5 @@ namespace API.Contollers
             ListProductProductImageModel response = await Mediator.Send(request);
             return Ok(response);
         }
-
-        [HttpDelete("[action]/{FileId}")]
-        public async Task<IActionResult> DeleteProductImage([FromRoute] DeleteProductImageCommandRequest request)
-        {
-            DeleteProductImageDto response = await Mediator.Send(request);
-            return Ok(response);
-        }
     }
 }
