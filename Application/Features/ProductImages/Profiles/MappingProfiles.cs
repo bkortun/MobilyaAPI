@@ -20,6 +20,11 @@ namespace Application.Features.ProductImages.Profiles
              CreateMap<ProductImage,GetByProductProductImageDto>().ForMember(c=>c.FileId,opt=>opt.MapFrom(p=>p.Image.FileId))
                                                                                                                 .ForMember(c=>c.Name,opt=>opt.MapFrom(p=>p.Image.File.Name))
                                                                                                                 .ForMember(c => c.Path, opt => opt.MapFrom(p => p.Image.File.Path)).ReverseMap();
+
+            CreateMap<IPaginate<ProductImage>, ListByShowcaseProductImageModel>().ReverseMap();
+            CreateMap<ProductImage, ListByShowcaseProductImageDto>().ForMember(c => c.FileId, opt => opt.MapFrom(p => p.Image.FileId))
+                                                                                                                .ForMember(c => c.Name, opt => opt.MapFrom(p => p.Image.File.Name))
+                                                                                                                .ForMember(c => c.Path, opt => opt.MapFrom(p => p.Image.File.Path)).ReverseMap();
         }
     }
 }
