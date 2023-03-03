@@ -32,10 +32,6 @@
     <Folder Include="Features\Categories\Queries\ListCategory\" />
     <Folder Include="Features\Categories\Rules\" />
     <Folder Include="Features\Categories\Profiles\" />
-    <Folder Include="Features\Images\Contants\" />
-    <Folder Include="Features\Images\Models\" />
-    <Folder Include="Features\Images\Queries\" />
-    <Folder Include="Features\Images\Rules\" />
     <Folder Include="Features\Orders\Rules\" />
     <Folder Include="Features\Products\Contants\" />
     <Folder Include="Features\Products\Rules\" />
