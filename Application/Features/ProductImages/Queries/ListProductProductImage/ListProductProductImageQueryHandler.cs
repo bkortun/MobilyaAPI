@@ -30,8 +30,9 @@ namespace Application.Features.ProductImages.Queries.ListProductProductImage
 
         public async Task<ListProductProductImageModel> Handle(ListProductProductImageQueryRequest request, CancellationToken cancellationToken)
         {
-
-            IPaginate<ProductImage> productImages = await _productImageRepository.GetListAsync(predicate: p=>p.ProductId==Guid.Parse(request.ProductId),include:m=>m.Include(p=>p.Image).ThenInclude(i=>i.File));
+            //Todo response'a showcase ekle
+            IPaginate<ProductImage> productImages = await _productImageRepository
+                .GetListAsync(predicate: p=>p.ProductId==Guid.Parse(request.ProductId),include:m=>m.Include(p=>p.Image).ThenInclude(i=>i.File));
             ListProductProductImageModel getByProductProductImageModel = _mapper.Map<ListProductProductImageModel>(productImages);
             return getByProductProductImageModel;
         }
