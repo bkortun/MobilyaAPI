@@ -79,20 +79,5 @@ namespace API.Contollers
             DeleteProductDto result = await Mediator.Send(request);
             return Ok(result);
         }
-
-        [HttpPost("[action]")]
-        public async Task<IActionResult> ProductImageUpload([FromQuery] UploadProductImageCommandRequest request)
-        {
-            request.Files = Request.Form.Files;
-            UploadProductImageModel response =await Mediator.Send(request);
-            return Ok(response);
-        }
-
-        [HttpGet("[action]/{ProductId}")]
-        public async Task<IActionResult> ListProductImages([FromRoute] ListProductProductImageQueryRequest request)
-        {
-            ListProductProductImageModel response = await Mediator.Send(request);
-            return Ok(response);
-        }
     }
 }

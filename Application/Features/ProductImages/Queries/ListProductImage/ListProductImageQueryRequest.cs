@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.ProductImages.Queries.ListProductProductImage
 {
-    public class ListProductProductImageQueryRequest:IRequest<ListProductProductImageModel>
+    public class ListProductImageQueryRequest:IRequest<ListProductImageModel>
     {
         public string ProductId { get; set; }
     }

@@ -3,6 +3,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Core.Persistence.Paging;
 using Domain.Entities;
+using Infrastructure.Storage.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,21 +17,22 @@ namespace Application.Features.ProductImages.Queries.ListByShowcaseImage
     public class ListByShowcaseProductImageQueryHandler : IRequestHandler<ListByShowcaseProductImageQueryRequest, ListByShowcaseProductImageModel>
     {
         private readonly IProductImageRepository _productImageRepository;
+        private readonly IStorageService _storageService;
         private readonly IMapper _mapper;
 
-        public ListByShowcaseProductImageQueryHandler(IProductImageRepository productImageRepository, IMapper mapper)
+        public ListByShowcaseProductImageQueryHandler(IProductImageRepository productImageRepository, IMapper mapper, IStorageService storageService)
         {
             _productImageRepository = productImageRepository;
             _mapper = mapper;
+            _storageService = storageService;
         }
 
         public async Task<ListByShowcaseProductImageModel> Handle(ListByShowcaseProductImageQueryRequest request, CancellationToken cancellationToken)
         {
-            IPaginate<ProductImage> productImages= await _productImageRepository.GetListAsync(
-                p => p.ProductId == Guid.Parse(request.ProductId) && 
-                p.Image.Showcase==true
-                ,include: m => m.Include(p => p.Image).ThenInclude(i => i.File));
-            ListByShowcaseProductImageModel listByShowcaseProductImageModel =_mapper.Map<ListByShowcaseProductImageModel>(productImages);
+           var imageCount= _storageService.GetFilesName("wwwroot/product-images").Count;
+            IPaginate<ProductImage> productImages = await _productImageRepository.GetListAsync(predicate: p => p.Image.Showcase == true,
+                index:0,size:imageCount, include: m => m.Include(p => p.Image).ThenInclude(i => i.File).Include(p => p.Product));
+            ListByShowcaseProductImageModel listByShowcaseProductImageModel = _mapper.Map<ListByShowcaseProductImageModel>(productImages);
             return listByShowcaseProductImageModel;
         }
     }

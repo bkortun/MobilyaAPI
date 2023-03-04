@@ -1,4 +1,5 @@
 ﻿using Application.Features.ProductImages.Models;
+using Core.Application.Requests;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,5 @@ namespace Application.Features.ProductImages.Queries.ListByShowcaseImage
 {
     public class ListByShowcaseProductImageQueryRequest : IRequest<ListByShowcaseProductImageModel>
     {
-        public string ProductId { get; set; }
     }
 }

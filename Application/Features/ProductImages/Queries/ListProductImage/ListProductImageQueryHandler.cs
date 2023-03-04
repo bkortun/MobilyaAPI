@@ -15,25 +15,25 @@ using System.Threading.Tasks;
 
 namespace Application.Features.ProductImages.Queries.ListProductProductImage
 {
-    public class ListProductProductImageQueryHandler : IRequestHandler<ListProductProductImageQueryRequest, ListProductProductImageModel>
+    public class ListProductImageQueryHandler : IRequestHandler<ListProductImageQueryRequest, ListProductImageModel>
     {
         private readonly IProductImageRepository _productImageRepository;
         private readonly IStorageService _storageService;
         private readonly IMapper _mapper;
 
-        public ListProductProductImageQueryHandler(IProductImageRepository productImageRepository, IMapper mapper, IStorageService storageService)
+        public ListProductImageQueryHandler(IProductImageRepository productImageRepository, IMapper mapper, IStorageService storageService)
         {
             _productImageRepository = productImageRepository;
             _mapper = mapper;
             _storageService = storageService;
         }
 
-        public async Task<ListProductProductImageModel> Handle(ListProductProductImageQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ListProductImageModel> Handle(ListProductImageQueryRequest request, CancellationToken cancellationToken)
         {
-            //Todo response'a showcase ekle
             IPaginate<ProductImage> productImages = await _productImageRepository
-                .GetListAsync(predicate: p=>p.ProductId==Guid.Parse(request.ProductId),include:m=>m.Include(p=>p.Image).ThenInclude(i=>i.File));
-            ListProductProductImageModel getByProductProductImageModel = _mapper.Map<ListProductProductImageModel>(productImages);
+                .GetListAsync(predicate: p=>p.ProductId==Guid.Parse(request.ProductId)
+                ,include:m=>m.Include(p=>p.Image).ThenInclude(i=>i.File).Include(p=>p.Product));
+            ListProductImageModel getByProductProductImageModel = _mapper.Map<ListProductImageModel>(productImages);
             return getByProductProductImageModel;
         }
     }
