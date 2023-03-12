@@ -45,7 +45,7 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.HasMany(p=>p.ProductImages).WithOne(p=>p.Product).HasForeignKey(p=>p.ProductId);
+                a.HasMany(p => p.ProductImages).WithOne(p => p.Product).HasForeignKey(p => p.ProductId);
                 a.HasMany(p => p.ProductCategories).WithOne(p => p.Product).HasForeignKey(p => p.ProductId);
             });
 
@@ -85,11 +85,12 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.HasMany(p => p.UserOperationClaims).WithOne(p=>p.User).HasForeignKey(p=>p.UserId);
-                a.HasMany(p => p.RefreshTokens).WithOne(p=>p.User).HasForeignKey(p=>p.UserId);
+                a.HasMany(p => p.UserOperationClaims).WithOne(p => p.User).HasForeignKey(p => p.UserId);
+                a.HasMany(p => p.RefreshTokens).WithOne(p => p.User).HasForeignKey(p => p.UserId);
             });
 
-            modelBuilder.Entity<OperationClaim>(a => {
+            modelBuilder.Entity<OperationClaim>(a =>
+            {
                 a.ToTable("OperationClaims").HasKey(k => k.Id);
                 a.Property(p => p.Id).HasColumnName("Id");
                 a.Property(p => p.Name).HasColumnName("Name");
@@ -98,7 +99,8 @@ namespace Persistence.Contexts
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
             });
 
-            modelBuilder.Entity<UserOperationClaim>(a => {
+            modelBuilder.Entity<UserOperationClaim>(a =>
+            {
                 a.ToTable("UserOperationClaims").HasKey(k => k.Id);
                 a.Property(p => p.Id).HasColumnName("Id");
                 a.Property(p => p.UserId).HasColumnName("UserId");
@@ -106,7 +108,7 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.HasOne(p => p.User).WithMany(p=>p.UserOperationClaims).HasForeignKey(p=>p.UserId);
+                a.HasOne(p => p.User).WithMany(p => p.UserOperationClaims).HasForeignKey(p => p.UserId);
             });
 
             modelBuilder.Entity<RefreshToken>(a =>
@@ -128,19 +130,21 @@ namespace Persistence.Contexts
                 a.HasOne(u => u.User);
             });
 
-            modelBuilder.Entity<Domain.Entities.File>(a => {
+            modelBuilder.Entity<Domain.Entities.File>(a =>
+            {
                 a.ToTable("Files").HasKey(k => k.Id);
                 a.Property(p => p.Id).HasColumnName("Id");
                 a.Property(p => p.Name).HasColumnName("Name");
                 a.Property(p => p.Path).HasColumnName("Path");
                 a.Property(p => p.Storage).HasColumnName("Storage");
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
-                a.Ignore(p=>p.UpdatedDate);
+                a.Ignore(p => p.UpdatedDate);
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.HasOne(p => p.Image).WithOne(p => p.File).HasForeignKey<Image>(p=>p.FileId);
+                a.HasOne(p => p.Image).WithOne(p => p.File).HasForeignKey<Image>(p => p.FileId);
             });
 
-            modelBuilder.Entity<Image>(a => {
+            modelBuilder.Entity<Image>(a =>
+            {
                 a.ToTable("Images").HasKey(k => k.Id);
                 a.Property(p => p.Id).HasColumnName("Id");
                 a.Property(p => p.FileId).HasColumnName("FileId");
@@ -148,8 +152,8 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.HasOne(p=>p.File).WithOne(p=>p.Image).HasForeignKey<Image>(p => p.FileId);
-                a.HasMany(p=>p.ProductImages).WithOne(p=>p.Image).HasForeignKey(p=>p.ImageId);
+                a.HasOne(p => p.File).WithOne(p => p.Image).HasForeignKey<Image>(p => p.FileId);
+                a.HasMany(p => p.ProductImages).WithOne(p => p.Image).HasForeignKey(p => p.ImageId);
             });
 
             modelBuilder.Entity<ProductImage>(a =>
@@ -161,8 +165,8 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.HasOne(p=>p.Image).WithMany(p=>p.ProductImages).HasForeignKey(p=>p.ImageId);
-                a.HasOne(p=>p.Product).WithMany(p=>p.ProductImages).HasForeignKey(p=>p.ProductId);
+                a.HasOne(p => p.Image).WithMany(p => p.ProductImages).HasForeignKey(p => p.ImageId);
+                a.HasOne(p => p.Product).WithMany(p => p.ProductImages).HasForeignKey(p => p.ProductId);
             });
 
             modelBuilder.Entity<Basket>(a =>
@@ -208,12 +212,13 @@ namespace Persistence.Contexts
             //Dolayısıyla en az bir property olması gerekiyor.
             modelBuilder.Entity<Campaign>(a =>
             {
-                a.ToTable("Campaign").HasKey(k => k.Id);
+                a.ToTable("Campaigns").HasKey(k => k.Id);
                 a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.Name).HasColumnName("Name");
+                a.Property(p => p.Description).HasColumnName("Description");
                 a.Property(p => p.ImageId).HasColumnName("ImageId");
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
-                a.Property(p => p.CampaignDescription).HasColumnName("CampaignDescription");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
                 a.HasOne(p => p.Image).WithOne(p => p.Campaign).HasForeignKey<Campaign>(p => p.ImageId);
             });//one to one generic
@@ -267,7 +272,7 @@ namespace Persistence.Contexts
 
             foreach (var data in datas)
             {
-                if (data.State==EntityState.Added)
+                if (data.State == EntityState.Added)
                 {
                     data.Entity.CreatedDate = DateTime.UtcNow;
                 }
@@ -281,7 +286,7 @@ namespace Persistence.Contexts
                     data.Entity.Status = false;
                 }*/
             }
-                return base.SaveChangesAsync(cancellationToken);
+            return base.SaveChangesAsync(cancellationToken);
         }
 
 

@@ -10,8 +10,8 @@ namespace Application.Features.Campaigns.Commands.CreateCampaign
 {
     public class CreateCampaignCommandRequest : IRequest<CreateCampaignDto>
     {
-        public string CampaignName { get; set; }
-        public string CampaignDescription { get; set; }
-        //public Guid ImageId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string ImageId { get; set; }
     }
 }

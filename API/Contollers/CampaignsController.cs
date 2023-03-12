@@ -24,7 +24,7 @@ namespace API.Contollers
             CreateCampaignDto result = await Mediator.Send(request);
             return Created("", result);
         }
-        [HttpPost("Id")]
+        [HttpDelete("{Id}")]
         public async Task<IActionResult> Delete([FromRoute] DeleteCampaignCommandRequest request)
         {
             DeleteCampaignDto result = await Mediator.Send(request);

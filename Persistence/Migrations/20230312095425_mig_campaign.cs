@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class mig_userDetail : Migration
+    public partial class mig_campaign : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,29 +29,9 @@ namespace Persistence.Migrations
                     table.PrimaryKey("PK_Adresses", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Campaign",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CampaignName = table.Column<string>(type: "text", nullable: false),
-                    ImageId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CampaignDescription = table.Column<string>(type: "text", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Campaign", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Campaign_Images_ImageId",
-                        column: x => x.ImageId,
-                        principalTable: "Images",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            
 
+          
             migrationBuilder.CreateTable(
                 name: "UserDetails",
                 columns: table => new
@@ -77,6 +57,33 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+           
+
+            migrationBuilder.CreateTable(
+                name: "Campaign",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CampaignName = table.Column<string>(type: "text", nullable: false),
+                    ImageId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CampaignDescription = table.Column<string>(type: "text", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Campaign", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Campaign_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+           
 
             migrationBuilder.CreateTable(
                 name: "UserDetailAdresses",
@@ -106,11 +113,15 @@ namespace Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            
+
             migrationBuilder.CreateIndex(
                 name: "IX_Campaign_ImageId",
                 table: "Campaign",
                 column: "ImageId",
                 unique: true);
+
+           
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserDetailAdresses_AddressId",
@@ -126,21 +137,62 @@ namespace Persistence.Migrations
                 name: "IX_UserDetails_UserId",
                 table: "UserDetails",
                 column: "UserId");
+
+           
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "BasketItems");
+
+            migrationBuilder.DropTable(
                 name: "Campaign");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "ProductCategories");
+
+            migrationBuilder.DropTable(
+                name: "ProductImages");
+
+            migrationBuilder.DropTable(
+                name: "RefreshTokens");
+
+            migrationBuilder.DropTable(
                 name: "UserDetailAdresses");
+
+            migrationBuilder.DropTable(
+                name: "UserOperationClaims");
+
+            migrationBuilder.DropTable(
+                name: "Baskets");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Adresses");
 
             migrationBuilder.DropTable(
                 name: "UserDetails");
+
+            migrationBuilder.DropTable(
+                name: "OperationClaims");
+
+            migrationBuilder.DropTable(
+                name: "Files");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

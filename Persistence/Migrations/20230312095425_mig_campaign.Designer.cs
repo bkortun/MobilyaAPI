@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Contexts;
@@ -11,9 +12,10 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(MobilyaDbContext))]
-    partial class MobilyaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230312095425_mig_campaign")]
+    partial class mig_campaign
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -356,23 +358,22 @@ namespace Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("Id");
 
+                    b.Property<string>("CampaignDescription")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("CampaignDescription");
+
+                    b.Property<string>("CampaignName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Description");
-
                     b.Property<Guid>("ImageId")
                         .HasColumnType("uuid")
                         .HasColumnName("ImageId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Name");
 
                     b.Property<bool>("Status")
                         .ValueGeneratedOnAdd()
@@ -389,7 +390,7 @@ namespace Persistence.Migrations
                     b.HasIndex("ImageId")
                         .IsUnique();
 
-                    b.ToTable("Campaigns", (string)null);
+                    b.ToTable("Campaign", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Category", b =>

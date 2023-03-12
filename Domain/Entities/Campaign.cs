@@ -9,9 +9,9 @@ namespace Domain.Entities
 {
     public class Campaign : Entity
     {
-        public string CampaignName { get; set; }
+        public string Name { get; set; }
         public Guid ImageId { get; set; }
-        public string CampaignDescription { get; set; }
+        public string Description { get; set; }
         public virtual Image Image { get; set; }
     }
 }
