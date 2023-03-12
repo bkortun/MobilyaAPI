@@ -13,5 +13,6 @@ namespace Domain.Entities
         public bool Showcase { get; set; }
         public virtual File File { get; set; }
         public virtual ICollection<ProductImage> ProductImages { get; set; }
+        public virtual Campaign Campaign { get; set; }
     }
 }
