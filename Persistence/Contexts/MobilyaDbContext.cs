@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace Persistence.Contexts
     {
         public MobilyaDbContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }//Veri tabanı tablosuna çeviriyor.
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<User> Users { get; set; }
@@ -26,6 +27,11 @@ namespace Persistence.Contexts
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<UserDetail> UserDetail { get; set; }
+        public DbSet<Address> Adresses { get; set; }
+        public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<UserDetailAddress> UserDetailAddresses { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -197,6 +203,61 @@ namespace Persistence.Contexts
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
                 a.HasOne(p => p.Basket).WithOne(p => p.Order).HasForeignKey<Order>(p => p.BasketId);
+            });
+            //Ef Core, her tablonun default olarak bir primary key kolonu olması gerektiğini kabul eder.
+            //Dolayısıyla en az bir property olması gerekiyor.
+            modelBuilder.Entity<Campaign>(a =>
+            {
+                a.ToTable("Campaign").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.ImageId).HasColumnName("ImageId");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.CampaignDescription).HasColumnName("CampaignDescription");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.HasOne(p => p.Image).WithOne(p => p.Campaign).HasForeignKey<Campaign>(p => p.ImageId);
+            });//one to one generic
+
+            modelBuilder.Entity<UserDetail>(a =>
+            {
+                a.ToTable("UserDetails").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.AddressId).HasColumnName("AddressId");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.Property(p => p.PhoneNumber).HasColumnName("PhoneNumber");
+                a.Property(p => p.ProfilePhotoId).HasColumnName("ProfilePhotoId");
+                a.Property(p => p.Gender).HasColumnName("Gender");
+                a.HasOne(p => p.User);//User Core katmanında
+                a.HasMany(p => p.UserDetailAddresses).WithOne(p => p.UserDetail).HasForeignKey(p => p.UserDetailId);
+            });
+
+            modelBuilder.Entity<Address>(a =>
+            {
+                a.ToTable("Adresses").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.Property(p => p.City).HasColumnName("City");
+                a.Property(p => p.District).HasColumnName("District");
+                a.Property(p => p.Neighbourhood).HasColumnName("Neighbourhood");
+                a.Property(p => p.ZipCode).HasColumnName("ZipCode");//posta kodu
+                a.Property(p => p.Country).HasColumnName("Country");
+                a.HasMany(p => p.UserDetailAddresses).WithOne(p => p.Address).HasForeignKey(p => p.AddressId);
+            });
+            modelBuilder.Entity<UserDetailAddress>(a =>
+            {
+                a.ToTable("UserDetailAdresses").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
+                a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.Property(p => p.AddressId).HasColumnName("AddressId");
+                a.Property(p => p.UserDetailId).HasColumnName("UserDetailId");
+                a.HasOne(p => p.Address).WithMany(p => p.UserDetailAddresses).HasForeignKey(p => p.AddressId);
+                a.HasOne(p => p.UserDetail).WithMany(p => p.UserDetailAddresses).HasForeignKey(p => p.UserDetailId);
             });
         }
 

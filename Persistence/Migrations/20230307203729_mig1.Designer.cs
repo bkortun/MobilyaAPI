@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Contexts;
@@ -11,9 +12,10 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(MobilyaDbContext))]
-    partial class MobilyaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230307203729_mig1")]
+    partial class mig1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,61 +211,6 @@ namespace Persistence.Migrations
                     b.ToTable("UserOperationClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Address", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("Id");
-
-                    b.Property<string>("AddressDetail")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("City");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Country");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<string>("District")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("District");
-
-                    b.Property<string>("Neighbourhood")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Neighbourhood");
-
-                    b.Property<bool>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true)
-                        .HasColumnName("Status");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedDate");
-
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("ZipCode");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Adresses", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entities.Basket", b =>
                 {
                     b.Property<Guid>("Id")
@@ -347,48 +294,6 @@ namespace Persistence.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("BasketItems", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Campaign", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("Id");
-
-                    b.Property<string>("CampaignDescription")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("CampaignDescription");
-
-                    b.Property<string>("CampaignName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<Guid>("ImageId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("ImageId");
-
-                    b.Property<bool>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true)
-                        .HasColumnName("Status");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ImageId")
-                        .IsUnique();
-
-                    b.ToTable("Campaign", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Category", b =>
@@ -644,94 +549,6 @@ namespace Persistence.Migrations
                     b.ToTable("ProductImages", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.UserDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("Id");
-
-                    b.Property<int>("AddressId")
-                        .HasColumnType("integer")
-                        .HasColumnName("AddressId");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("Gender")
-                        .HasColumnType("boolean")
-                        .HasColumnName("Gender");
-
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("integer")
-                        .HasColumnName("PhoneNumber");
-
-                    b.Property<int>("ProfilePhotoId")
-                        .HasColumnType("integer")
-                        .HasColumnName("ProfilePhotoId");
-
-                    b.Property<bool>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true)
-                        .HasColumnName("Status");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedDate");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserDetails", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.UserDetailAddress", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("Id");
-
-                    b.Property<Guid>("AddressId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("AddressId");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<bool>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true)
-                        .HasColumnName("Status");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedDate");
-
-                    b.Property<Guid>("UserDetailId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("UserDetailId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("UserDetailId");
-
-                    b.ToTable("UserDetailAdresses", (string)null);
-                });
-
             modelBuilder.Entity("Core.Security.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Core.Security.Entities.User", "User")
@@ -790,17 +607,6 @@ namespace Persistence.Migrations
                     b.Navigation("Basket");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Campaign", b =>
-                {
-                    b.HasOne("Domain.Entities.Image", "Image")
-                        .WithOne("Campaign")
-                        .HasForeignKey("Domain.Entities.Campaign", "ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("Domain.Entities.Image", b =>
@@ -863,46 +669,11 @@ namespace Persistence.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Domain.Entities.UserDetail", b =>
-                {
-                    b.HasOne("Core.Security.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.UserDetailAddress", b =>
-                {
-                    b.HasOne("Domain.Entities.Address", "Address")
-                        .WithMany("UserDetailAddresses")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.UserDetail", "UserDetail")
-                        .WithMany("UserDetailAddresses")
-                        .HasForeignKey("UserDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-
-                    b.Navigation("UserDetail");
-                });
-
             modelBuilder.Entity("Core.Security.Entities.User", b =>
                 {
                     b.Navigation("RefreshTokens");
 
                     b.Navigation("UserOperationClaims");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Address", b =>
-                {
-                    b.Navigation("UserDetailAddresses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Basket", b =>
@@ -926,9 +697,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Image", b =>
                 {
-                    b.Navigation("Campaign")
-                        .IsRequired();
-
                     b.Navigation("ProductImages");
                 });
 
@@ -939,11 +707,6 @@ namespace Persistence.Migrations
                     b.Navigation("ProductCategories");
 
                     b.Navigation("ProductImages");
-                });
-
-            modelBuilder.Entity("Domain.Entities.UserDetail", b =>
-                {
-                    b.Navigation("UserDetailAddresses");
                 });
 #pragma warning restore 612, 618
         }

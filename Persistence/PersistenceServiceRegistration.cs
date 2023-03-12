@@ -34,6 +34,8 @@ namespace Persistence
             service.AddScoped<IFileRepository,FileRepository>();
             service.AddScoped<IProductImageRepository,ProductImageRepository>();
             service.AddScoped<IImageRepository,ImageRepository>();
+            service.AddScoped<ICampaignRepository, CampaignRepository>();
+
         }
     }
 }
