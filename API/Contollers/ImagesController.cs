@@ -1,5 +1,8 @@
 ﻿using Application.Features.Images.Commands.SetShowcase;
+using Application.Features.Images.Commands.Upload;
 using Application.Features.Images.Dtos;
+using Application.Features.Images.Models;
+using Application.Features.ProductImages.Commands.UploadProductImage;
 using Application.Features.ProductImages.Models;
 using Application.Features.ProductImages.Queries.ListByShowcaseImage;
 using Core.Application.Requests;
@@ -17,6 +20,14 @@ namespace API.Contollers
         {
             SetShowcaseImageDto result = await Mediator.Send(request);
             return Ok(result);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Upload([FromQuery] UploadImageCommandRequest request)
+        {
+            request.Files = Request.Form.Files;
+            UploadImageModel response = await Mediator.Send(request);
+            return Ok(response);
         }
     }
 }
