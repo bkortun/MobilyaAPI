@@ -1,10 +1,16 @@
 ﻿using Application.Features.Campaigns.Commands.CreateCampaign;
 using Application.Features.Campaigns.Commands.DeleteCampaign;
 using Application.Features.Campaigns.Commands.UpdateCampaign;
+using Application.Features.Campaigns.Commands.UploadCampaignImage;
 using Application.Features.Campaigns.Dtos;
 using Application.Features.Campaigns.Models;
 using Application.Features.Campaigns.Query.ListByIdCampaign;
 using Application.Features.Campaigns.Query.ListCampaign;
+using Application.Features.Campaigns.Query.ListCampaignImage;
+using Application.Features.Images.Commands.Upload;
+using Application.Features.Images.Models;
+using Application.Features.ProductImages.Models;
+using Application.Features.ProductImages.Queries.ListProductProductImage;
 using Azure.Core;
 using Core.Application.Requests;
 using Domain.Entities;
@@ -48,6 +54,21 @@ namespace API.Contollers
         {
             ListByIdCampaignDto result = await Mediator.Send(request);
             return Ok(result);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> UploadCampaignImage([FromQuery] UploadCampaignImageCommandRequest request)
+        {
+            request.Files = Request.Form.Files;
+            UploadCampaignImageDto response = await Mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("[action]/{CampaignId}")]
+        public async Task<IActionResult> ListCampaignImage([FromRoute] ListCampaignImageQueryRequest request)
+        {
+            ListCampaignImageModel response = await Mediator.Send(request);
+            return Ok(response);
         }
     }
 }
