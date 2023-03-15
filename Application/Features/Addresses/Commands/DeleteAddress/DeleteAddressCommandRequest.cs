@@ -10,7 +10,7 @@ namespace Application.Features.Addresses.Commands.DeleteAddress
 {
     public class DeleteAddressCommandRequest:IRequest<DeleteAddressDto>
     {
-        //abi burada verdiğin prop adında isim vermen lazım
+        //abi burada verdiğin prop adında isim vermen lazım(Controllerdaki Route kısmına)
         public string Id { get; set; }
     }
 }

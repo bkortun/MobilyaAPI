@@ -222,6 +222,7 @@ namespace Persistence.Contexts
             {
                 a.ToTable("UserDetails").HasKey(k => k.Id);
                 a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.UserId).HasColumnName("UserId");
                 a.Property(p => p.AddressId).HasColumnName("AddressId");
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
