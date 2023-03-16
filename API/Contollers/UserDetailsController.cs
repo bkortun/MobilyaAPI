@@ -6,6 +6,7 @@ using Application.Features.UserDetails.Commands.UploadUserDetail;
 using Application.Features.UserDetails.Dtos;
 using Application.Features.UserDetails.Models;
 using Application.Features.UserDetails.Queries.ListByIdUserDetail;
+using Application.Features.UserDetails.Queries.ListProfilePhoto;
 using Application.Features.UserDetails.Queries.ListUserDetail;
 using Core.Application.Requests;
 using MediatR;
@@ -49,10 +50,17 @@ namespace API.Contollers
             ListByIdUserDetailDto result = await Mediator.Send(request);
             return Ok(result);
         }
-        [HttpPost("[action]/{UserId}")]
-        public async Task<IActionResult> Upload([FromRoute] UploadUserDetailCommandRequest request)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Upload([FromQuery] UploadUserDetailCommandRequest request)
         {
+            request.ProfilePhoto = Request.Form.Files;
             UploadUserDetailDto result = await Mediator.Send(request);
+            return Ok(result);
+        }
+        [HttpGet("[action]/{UserId}")]
+        public async Task<IActionResult> ListProfilePhoto([FromRoute] ListProfilePhotoQueryRequest request)
+        {
+            ListProfilePhotoDto result = await Mediator.Send(request);
             return Ok(result);
         }
     }
