@@ -20,6 +20,8 @@ namespace Application.Features.Users.Profiles
                 .ReverseMap();
             CreateMap<IPaginate<UserOperationClaim>, ListOperationClaimByUserEmailModel>().ReverseMap();
 
+            CreateMap<User,ListByIdUserDto>().ReverseMap();
+
         }
     }
 }

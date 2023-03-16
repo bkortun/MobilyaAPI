@@ -26,10 +26,10 @@ namespace Application.Features.UserDetails.Commands.UpdateUserDetail
 
         public async Task<UpdateUserDetailDto> Handle(UpdateUserDetailCommandRequest request, CancellationToken cancellationToken)
         {
-            //Todo burasını barış halledecek
+            
             UserDetail userDetail = _mapper.Map<UserDetail>(request);
-            UserDetail UpdateduserDetail = await _userDetailRepository.UpdateAsync(userDetail);
-            UpdateUserDetailDto dto = _mapper.Map<UpdateUserDetailDto>(UpdateduserDetail);
+            UserDetail UpdatedUserDetail = await _userDetailRepository.UpdateAsync(userDetail);
+            UpdateUserDetailDto dto = _mapper.Map<UpdateUserDetailDto>(UpdatedUserDetail);
             return dto;
         }
     }

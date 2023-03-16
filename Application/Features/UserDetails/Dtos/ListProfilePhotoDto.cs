@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UserDetails.Dtos
 {
-    public class UpdateUserDetailDto
+    public class ListProfilePhotoDto
     {
         public string UserId { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string PhoneNumber { get; set; }
-        public string ProfilePhotoId { get; set; }
-        public bool Gender { get; set; }
+        public string ImageId { get; set; }
+        public string FileId { get; set; }
+        public string ImageName { get; set; }
+        public string Path { get; set; }
     }
 }

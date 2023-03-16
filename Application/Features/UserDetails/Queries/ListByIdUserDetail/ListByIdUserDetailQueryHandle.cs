@@ -32,6 +32,7 @@ namespace Application.Features.UserDetails.Queries.ListByIdUserDetail
             //bu iş sende hocam
             UserDetail userDetail = await _userDetailRepository.GetAsync(p => p.User.Id == Guid.Parse(request.UserId));
             User user = await _userRepository.GetAsync(p => p.Id == Guid.Parse(request.UserId));
+            //Todo Burası map edilebilir list'deki versionu gibi denemek lazım
             ListByIdUserDetailDto detailDto = new()
             {
                 Id = userDetail.Id.ToString(),
@@ -39,8 +40,10 @@ namespace Application.Features.UserDetails.Queries.ListByIdUserDetail
                 UserId=user.Id.ToString(),
                 FirstName=user.FirstName,
                 LastName=user.LastName,
+                Gender=userDetail.Gender,
                 PhoneNumber=userDetail.PhoneNumber,
-//ProfilePhotoId=userDetail.ProfilePhotoId.ToString(),
+                ProfilePhotoId=userDetail.ProfilePhotoId.ToString(),
+                DateOfBirth=userDetail.DateOfBirth,
                 CreatedDate=userDetail.CreatedDate,
                 UpdatedDate=userDetail.UpdatedDate,
                 Status=userDetail.Status,
