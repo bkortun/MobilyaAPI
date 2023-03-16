@@ -3,17 +3,21 @@ using Application.Features.OperationClaims.Commands.DeleteOperationClaim;
 using Application.Features.OperationClaims.Dtos;
 using Application.Features.OperationClaims.Models;
 using Application.Features.OperationClaims.Queries.ListOperationClaim;
+using Application.Features.UserDetails.Dtos;
+using Application.Features.UserDetails.Queries.ListByIdUserDetail;
 using Application.Features.Users.Commands.AddOperationClaim;
 using Application.Features.Users.Commands.LoginUser;
 using Application.Features.Users.Commands.RegisterUser;
 using Application.Features.Users.Commands.RemoveOperationClaim;
 using Application.Features.Users.Dtos;
 using Application.Features.Users.Models;
+using Application.Features.Users.Queries.ListByIdUser;
 using Application.Features.Users.Queries.ListOperationClaimByUserEmail;
 using Core.Application.Requests;
 using Core.Security.Dtos;
 using Core.Security.Entities;
 using Core.Security.JWT;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -96,6 +100,12 @@ namespace API.Contollers
         {
             ListOperationClaimByUserEmailModel response = await Mediator.Send(request);
             return Ok(response);
+        }
+        [HttpGet("[action]/{Id}")]
+        public async Task<IActionResult> ListById([FromRoute] ListByIdUserQueryRequest request)
+        {
+            ListByIdUserDto result = await Mediator.Send(request);
+            return Ok(result);
         }
     }
 }
