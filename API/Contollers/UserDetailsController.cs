@@ -60,7 +60,7 @@ namespace API.Contollers
         [HttpGet("[action]/{UserId}")]
         public async Task<IActionResult> ListProfilePhoto([FromRoute] ListProfilePhotoQueryRequest request)
         {
-            ListProfilePhotoDto result = await Mediator.Send(request);
+            ListProfilePhotoModel result = await Mediator.Send(request);
             return Ok(result);
         }
     }

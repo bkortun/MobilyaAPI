@@ -1,4 +1,5 @@
 ﻿using Application.Features.UserDetails.Dtos;
+using Application.Features.UserDetails.Models;
 using Application.Services.Repositories;
 using Domain.Entities;
 using MediatR;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UserDetails.Queries.ListProfilePhoto
 {
-    public class ListProfilePhotoQueryHandler : IRequestHandler<ListProfilePhotoQueryRequest, ListProfilePhotoDto>
+    public class ListProfilePhotoQueryHandler : IRequestHandler<ListProfilePhotoQueryRequest, ListProfilePhotoModel>
     {
         private readonly IUserDetailRepository _userDetailRepository;
         private readonly IImageRepository _imageRepository;
@@ -23,12 +24,12 @@ namespace Application.Features.UserDetails.Queries.ListProfilePhoto
             _fileRepository = fileRepository;
         }
 
-        public async Task<ListProfilePhotoDto> Handle(ListProfilePhotoQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ListProfilePhotoModel> Handle(ListProfilePhotoQueryRequest request, CancellationToken cancellationToken)
         {
             UserDetail userDetail = await _userDetailRepository.GetAsync(u => u.UserId == Guid.Parse(request.UserId));
             Image image = await _imageRepository.GetAsync(i => i.Id == userDetail.ProfilePhotoId);
             Domain.Entities.File file = await _fileRepository.GetAsync(f => f.Id == image.FileId);
-            return new()
+            ListProfilePhotoDto listProfilePhotoDto = new()
             {
                 FileId = file.Id.ToString(),
                 ImageId = image.Id.ToString(),
@@ -36,6 +37,9 @@ namespace Application.Features.UserDetails.Queries.ListProfilePhoto
                 Path = file.Path,
                 UserId = userDetail.UserId.ToString()
             };
+            List<ListProfilePhotoDto> listProfilePhotoDtos = new();
+            listProfilePhotoDtos.Add(listProfilePhotoDto);
+            return new() { Items = listProfilePhotoDtos };
         }
     }
 }
