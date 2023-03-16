@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(MobilyaDbContext))]
-    [Migration("20230315140816_mig_4")]
-    partial class mig_4
+    [Migration("20230316051956_mig_userDetail_addressId_down")]
+    partial class mig_userDetail_addressId_down
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -358,22 +358,23 @@ namespace Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("Id");
 
-                    b.Property<string>("CampaignDescription")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("CampaignDescription");
-
-                    b.Property<string>("CampaignName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Description");
+
                     b.Property<Guid>("ImageId")
                         .HasColumnType("uuid")
                         .HasColumnName("ImageId");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Name");
 
                     b.Property<bool>("Status")
                         .ValueGeneratedOnAdd()
@@ -390,7 +391,7 @@ namespace Persistence.Migrations
                     b.HasIndex("ImageId")
                         .IsUnique();
 
-                    b.ToTable("Campaign", (string)null);
+                    b.ToTable("Campaigns", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Category", b =>
@@ -652,10 +653,6 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("Id");
-
-                    b.Property<Guid>("AddressId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("AddressId");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")

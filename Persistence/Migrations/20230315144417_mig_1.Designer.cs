@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(MobilyaDbContext))]
-    [Migration("20230312102249_mig_campaign_3")]
-    partial class mig_campaign_3
+    [Migration("20230315144417_mig_1")]
+    partial class mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -654,8 +654,8 @@ namespace Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("Id");
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("AddressId")
+                        .HasColumnType("uuid")
                         .HasColumnName("AddressId");
 
                     b.Property<DateTime>("CreatedDate")
@@ -669,12 +669,13 @@ namespace Persistence.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("Gender");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("integer")
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("PhoneNumber");
 
-                    b.Property<int>("ProfilePhotoId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("ProfilePhotoId")
+                        .HasColumnType("uuid")
                         .HasColumnName("ProfilePhotoId");
 
                     b.Property<bool>("Status")
@@ -688,7 +689,8 @@ namespace Persistence.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
 
                     b.HasKey("Id");
 

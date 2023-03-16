@@ -1,5 +1,6 @@
 ﻿using Application.Features.UserDetails.Dtos;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -14,12 +15,10 @@ namespace Application.Features.UserDetails.Commands.CreateUserDetail
     {
         //public string FirstName { get; set; }
         //public string LastName { get; set; }
-        //public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         //public string AddressId { get; set; }
         public DateTime DateOfBirth { get; set; }
         public bool Gender { get; set; }
         public string UserId { get; set; }
-        public string AddressId { get; set; }
-        public IFromBodyMetadata? ProfilePhotoId { get; set; }
     }
 }

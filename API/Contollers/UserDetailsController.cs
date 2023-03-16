@@ -2,6 +2,7 @@
 using Application.Features.UserDetails.Commands.CreateUserDetail;
 using Application.Features.UserDetails.Commands.DeleteUserDetail;
 using Application.Features.UserDetails.Commands.UpdateUserDetail;
+using Application.Features.UserDetails.Commands.UploadUserDetail;
 using Application.Features.UserDetails.Dtos;
 using Application.Features.UserDetails.Models;
 using Application.Features.UserDetails.Queries.ListByIdUserDetail;
@@ -29,12 +30,12 @@ namespace API.Contollers
             UpdateUserDetailDto result = await Mediator.Send(request);
             return Ok(result);
         }
-        [HttpDelete("{Id}")]
-        public async Task<IActionResult> Delete([FromRoute] DeleteUserDetailCommandRequest request)
-        {
-            DeleteUserDetailDto result = await Mediator.Send(request);
-            return Ok(result);
-        }
+        //[HttpDelete("{Id}")]
+        //public async Task<IActionResult> Delete([FromRoute] DeleteUserDetailCommandRequest request)
+        //{
+        //    DeleteUserDetailDto result = await Mediator.Send(request);
+        //    return Ok(result);
+        //}
         [HttpGet]
         public async Task<IActionResult> List([FromQuery] PageRequest pageRequest)
         {
@@ -42,10 +43,16 @@ namespace API.Contollers
             ListUserDetailModel result = await Mediator.Send(request);
             return Ok(result);
         }
-        [HttpGet("{Id}")]
+        [HttpGet("{UserId}")]
         public async Task<IActionResult> ListById([FromRoute] ListByIdUserDetailQueryRequest request)
         {
             ListByIdUserDetailDto result = await Mediator.Send(request);
+            return Ok(result);
+        }
+        [HttpPost("[action]/{UserId}")]
+        public async Task<IActionResult> Upload([FromRoute] UploadUserDetailCommandRequest request)
+        {
+            UploadUserDetailDto result = await Mediator.Send(request);
             return Ok(result);
         }
     }

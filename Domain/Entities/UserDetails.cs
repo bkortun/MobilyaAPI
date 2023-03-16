@@ -13,7 +13,6 @@ namespace Domain.Entities
         public Guid UserId { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string PhoneNumber { get; set; }
-        public Guid AddressId { get; set; }
         public Guid ProfilePhotoId { get; set; }
         public bool Gender { get; set; }
         public virtual User User { get; set; }
