@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Domain.Entities
 {
     public class UserDetail : Entity
-    {
+    {//UserDetail'in Id'si Entity'nin içinde 
         public Guid UserId { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string PhoneNumber { get; set; }

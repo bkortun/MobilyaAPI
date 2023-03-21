@@ -10,7 +10,8 @@ namespace Application.Features.UserDetailAddresses.Queries.ListByIdUserDetailAdd
 {
     public class ListByIdUserDetailAddressQueryRequest:IRequest<ListByIdUserDetailAddressDto>
     {
-        public string Id { get; set; }
+        public string UserId { get; set; }
+
 
     }
 }

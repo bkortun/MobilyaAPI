@@ -250,6 +250,11 @@ namespace Persistence.Migrations
                         .HasDefaultValue(true)
                         .HasColumnName("Status");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Title");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");

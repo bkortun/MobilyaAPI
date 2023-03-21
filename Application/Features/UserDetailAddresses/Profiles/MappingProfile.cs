@@ -29,6 +29,7 @@ namespace Application.Features.UserDetailAddresses.Profiles
             CreateMap<UserDetailAddress, ListUserDetailAddressModel>().ReverseMap();
             CreateMap<UserDetailAddress, ListUserDetailAddressDto>().ReverseMap();
 
+            CreateMap<UserDetailAddress, ListByIdUserDetailAddressDto>().ReverseMap();
             
         }
     }

@@ -4,6 +4,7 @@ using AutoMapper;
 using Core.Persistence.Paging;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,8 @@ namespace Application.Features.UserDetailAddresses.Queries.ListUserDetailAddress
         public async Task<ListUserDetailAddressModel> Handle(ListUserDetailAddressQueryRequest request, CancellationToken cancellationToken)
         {
             IPaginate<UserDetailAddress> userDetailAddresses = await _userDetailAddressRepository
-                .GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
+                .GetListAsync(predicate:p=>p.Id == Guid.Parse(request.UserId),
+                include: m => m.Include(b => b.Address).Include(t => t.UserDetail));
             ListUserDetailAddressModel listModel = _mapper.Map<ListUserDetailAddressModel>(userDetailAddresses);
             return listModel;
         }

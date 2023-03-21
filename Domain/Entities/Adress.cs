@@ -9,6 +9,7 @@ namespace Domain.Entities
 {
     public class Address : Entity
     {
+        public string Title { get; set; }
         public string City { get; set; }
         public string District { get; set; }//ilçe
         public string Neighbourhood { get; set; }//mahalle

@@ -11,6 +11,6 @@ namespace Application.Features.UserDetailAddresses.Queries.ListUserDetailAddress
 {
     public class ListUserDetailAddressQueryRequest:IRequest<ListUserDetailAddressModel>
     {
-        public PageRequest PageRequest { get; set; }
+        public string UserId { get; set; }
     }
 }

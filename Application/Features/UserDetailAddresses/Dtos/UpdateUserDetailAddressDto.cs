@@ -8,7 +8,7 @@ namespace Application.Features.UserDetailAddresses.Dtos
 {
     public class UpdateUserDetailAddressDto
     {
-        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
         public bool Status { get; set; }
     }
 }
