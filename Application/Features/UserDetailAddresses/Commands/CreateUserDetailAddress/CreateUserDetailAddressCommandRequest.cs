@@ -10,7 +10,8 @@ namespace Application.Features.UserDetailAddresses.Commands.CreateUserDetailAddr
 {
     public class CreateUserDetailAddressCommandRequest:IRequest<CreateUserDetailAddressDto>
     {
-        public DateTime CreatedDate { get; set; }
-        public bool Status { get; set; }
+        public string UserId { get; set; }
+        public string AddressId { get; set; }
+
     }
 }

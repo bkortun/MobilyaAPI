@@ -4,6 +4,7 @@ using AutoMapper;
 using Core.Persistence.Paging;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +16,22 @@ namespace Application.Features.UserDetailAddresses.Queries.ListUserDetailAddress
     public class ListUserDetailAddressQueryHandler : IRequestHandler<ListUserDetailAddressQueryRequest, ListUserDetailAddressModel>
     {
         private readonly IUserDetailAddressRepository _userDetailAddressRepository;
+        private readonly IUserDetailRepository _userDetailRepository;
         private readonly IMapper _mapper;
 
-        public ListUserDetailAddressQueryHandler(IUserDetailAddressRepository userDetailAddressRepository, IMapper mapper)
+        public ListUserDetailAddressQueryHandler(IUserDetailAddressRepository userDetailAddressRepository, IMapper mapper, IUserDetailRepository userDetailRepository)
         {
             _userDetailAddressRepository = userDetailAddressRepository;
             _mapper = mapper;
+            _userDetailRepository = userDetailRepository;
         }
 
         public async Task<ListUserDetailAddressModel> Handle(ListUserDetailAddressQueryRequest request, CancellationToken cancellationToken)
         {
+            UserDetail userDetail = await _userDetailRepository.GetAsync(u => u.UserId == Guid.Parse(request.UserId));
             IPaginate<UserDetailAddress> userDetailAddresses = await _userDetailAddressRepository
-                .GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
+                .GetListAsync(predicate:u=>u.UserDetailId == userDetail.Id
+                ,include: p => p.Include(b => b.UserDetail).Include(k => k.Address));
             ListUserDetailAddressModel listModel = _mapper.Map<ListUserDetailAddressModel>(userDetailAddresses);
             return listModel;
         }

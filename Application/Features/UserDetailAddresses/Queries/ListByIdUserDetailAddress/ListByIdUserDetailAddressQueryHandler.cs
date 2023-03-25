@@ -1,6 +1,7 @@
 ﻿using Application.Features.UserDetailAddresses.Dtos;
 using Application.Services.Repositories;
 using AutoMapper;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,11 @@ namespace Application.Features.UserDetailAddresses.Queries.ListByIdUserDetailAdd
             _mapper = mapper;
         }
 
-        public Task<ListByIdUserDetailAddressDto> Handle(ListByIdUserDetailAddressQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ListByIdUserDetailAddressDto> Handle(ListByIdUserDetailAddressQueryRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            UserDetailAddress userDetailAddress = await _userDetailAddressRepository.GetAsync(p => p.Id == Guid.Parse(request.Id));
+            ListByIdUserDetailAddressDto dto = _mapper.Map<ListByIdUserDetailAddressDto>(userDetailAddress);
+            return dto;
         }
     }
 }
