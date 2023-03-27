@@ -42,6 +42,9 @@ namespace Persistence.Contexts
                 a.Property(p => p.Name).HasColumnName("Name");
                 a.Property(p => p.Price).HasColumnName("Price");
                 a.Property(p => p.Stock).HasColumnName("Stock");
+                a.Property(p => p.Description).HasColumnName("Description");
+                a.Property(p => p.ViewCount).HasColumnName("ViewCount");
+                a.Property(p => p.LikeCount).HasColumnName("LikeCount");
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
