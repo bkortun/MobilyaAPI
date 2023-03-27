@@ -54,6 +54,7 @@ namespace Application.Features.Users.Commands.RegisterUser
             RefreshToken refreshToken = await _authService.CreateRefreshTokenAsync(addedUser, request.IpAddress);
             RefreshToken addedRefreshToken = await _authService.AddRefreshTokenAsync(refreshToken);
             await _basketService.CreateNewActiveBasket(addedUser);
+            await _authService.CreateUserDetailAsync(addedUser.Id.ToString());
             return new()
             {
                 AccessToken = createdAccessToken,

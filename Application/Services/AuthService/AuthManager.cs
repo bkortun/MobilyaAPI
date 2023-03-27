@@ -2,6 +2,7 @@
 using Core.Persistence.Paging;
 using Core.Security.Entities;
 using Core.Security.JWT;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,14 @@ namespace Application.Services.AuthService
         private readonly IUserOperationClaimRepository _userOperationClaimRepository;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly ITokenHelper _tokenHelper;
+        private readonly IUserDetailRepository _userDetailRepository;
 
-        public AuthManager(IUserOperationClaimRepository userOperationClaimRepository, IRefreshTokenRepository refreshTokenRepository, ITokenHelper tokenHelper)
+        public AuthManager(IUserOperationClaimRepository userOperationClaimRepository, IRefreshTokenRepository refreshTokenRepository, ITokenHelper tokenHelper, IUserDetailRepository userDetailRepository)
         {
             _userOperationClaimRepository = userOperationClaimRepository;
             _refreshTokenRepository = refreshTokenRepository;
             _tokenHelper = tokenHelper;
+            _userDetailRepository = userDetailRepository;
         }
 
         public async Task<RefreshToken> AddRefreshTokenAsync(RefreshToken refreshToken)
@@ -45,6 +48,16 @@ namespace Application.Services.AuthService
         {
             RefreshToken createdRefreshToken= _tokenHelper.CreateRefreshToken(user, ipAddress);
             return Task.FromResult(createdRefreshToken);
+        }
+
+        public async Task CreateUserDetailAsync(string userId)
+        {
+            //Todo refactor edilecek
+            UserDetail userDetail = new()
+            {
+                UserId = Guid.Parse(userId),
+            };
+            await _userDetailRepository.AddAsync(userDetail);
         }
 
         //Todo Kullanıcı şifre değiştirme operasyonu eklenecek ve email/otp ile kontrol edilecek

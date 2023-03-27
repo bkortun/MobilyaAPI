@@ -234,9 +234,10 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.Property(p => p.PhoneNumber).HasColumnName("PhoneNumber");
-                a.Property(p => p.ProfilePhotoId).HasColumnName("ProfilePhotoId");
-                a.Property(p => p.Gender).HasColumnName("Gender");
+                a.Property(p => p.DateOfBirth).HasColumnName("DateOfBirth").IsRequired(false);
+                a.Property(p => p.PhoneNumber).HasColumnName("PhoneNumber").IsRequired(false);
+                a.Property(p => p.ProfilePhotoId).HasColumnName("ProfilePhotoId").IsRequired(false);
+                a.Property(p => p.Gender).HasColumnName("Gender").IsRequired(false);
                 a.HasOne(p => p.User);//User Core katmanında
                 a.HasMany(p => p.UserDetailAddresses).WithOne(p => p.UserDetail).HasForeignKey(p => p.UserDetailId);
             });
