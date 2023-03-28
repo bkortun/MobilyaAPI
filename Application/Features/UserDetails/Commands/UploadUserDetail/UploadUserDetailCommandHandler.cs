@@ -37,7 +37,7 @@ namespace Application.Features.UserDetails.Commands.UploadUserDetail
             {
                 file.Storage = _storageService.StorageType;
                 Domain.Entities.File addedFile = await _fileRepository.AddAsync(file);
-
+                
                 Image image = new() { FileId = file.Id };
                 Image addedImage = await _imageRepository.AddAsync(image);
                 UserDetail requestedUserDetail = await _userDetailRepository.GetAsync(u => u.UserId == Guid.Parse(request.UserId));

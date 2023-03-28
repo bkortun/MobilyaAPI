@@ -15,8 +15,6 @@ namespace Application.Features.Products.Queries.ListDynamicProduct
     {
         public PageRequest PageRequest { get; set; }
         public Dynamic Dynamic { get; set; }
-        public int ViewCount { get; set; }
-        public int LikeCount { get; set; }
 
     }
 }

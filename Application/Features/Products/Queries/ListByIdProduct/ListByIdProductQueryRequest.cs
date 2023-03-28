@@ -11,7 +11,5 @@ namespace Application.Features.Products.Queries.ListByIdProduct
     public class ListByIdProductQueryRequest:IRequest<ListByIdProductDto>
     {
         public string Id { get; set; }
-        public int ViewCount { get; set; }
-        public int LikeCount { get; set; }
     }
 }
