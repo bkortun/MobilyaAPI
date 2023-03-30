@@ -4,6 +4,7 @@ using Application.Features.Categories.Commands.UpdateCategory;
 using Application.Features.Categories.Dtos;
 using Application.Features.Categories.Models;
 using Application.Features.Categories.Queries.ListCategory;
+using Application.Features.Categories.Queries.ListCategoryByProductId;
 using Core.Application.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,13 @@ namespace API.Contollers
                 PageRequest = pageRequest,
             };
             ListCategoryModel result = await Mediator.Send(listProductsQueryRequest);
+            return Ok(result);
+        }
+        [HttpGet("{ProductId}")]
+        public async Task<IActionResult> ListByProductId([FromRoute] PageRequest pageRequest,[FromQuery] string productId)
+        {
+            ListCategoryByProductIdQueryRequest request = new() { PageRequest = pageRequest ,ProductId=productId};
+            ListCategoryByProductIdModel result =await Mediator.Send(request);
             return Ok(result);
         }
 

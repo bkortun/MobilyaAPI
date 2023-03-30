@@ -28,8 +28,6 @@
     <Folder Include="Features\Categories\Commands\CreateCategory\" />
     <Folder Include="Features\Categories\Commands\DeleteCategory\" />
     <Folder Include="Features\Categories\Commands\UpdateCategory\" />
-    <Folder Include="Features\Categories\Dtos\" />
-    <Folder Include="Features\Categories\Models\" />
     <Folder Include="Features\Categories\Queries\ListCategory\" />
     <Folder Include="Features\Categories\Rules\" />
     <Folder Include="Features\Categories\Profiles\" />

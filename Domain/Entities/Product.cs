@@ -14,7 +14,7 @@ namespace Domain.Entities
         public long Stock { get; set; }
         public string Description { get; set; }
         public int ViewCount { get; set; }
-        public int LikeCount { get; set; }
+        public int LikeCount { get; set; } 
 
         public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ProductCategory> ProductCategories { get; set; }
