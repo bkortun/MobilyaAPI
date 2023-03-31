@@ -32,6 +32,7 @@ namespace Application.Features.UserDetailAddresses.Profiles
                                                                     .ForMember(u => u.City, opt => opt.MapFrom(d => d.Address.City))
                                                                     .ForMember(u => u.Neighbourhood, opt => opt.MapFrom(d => d.Address.Neighbourhood))
                                                                     .ForMember(u => u.Country, opt => opt.MapFrom(d => d.Address.Country))
+                                                                    .ForMember(u => u.AddressDetail, opt => opt.MapFrom(d => d.Address.AddressDetail))
                                                                     .ForMember(u => u.District, opt => opt.MapFrom(d => d.Address.District))
                                                                     .ForMember(u => u.Title, opt => opt.MapFrom(d => d.Address.Title))
                                                                     .ForMember(u => u.ZipCode, opt => opt.MapFrom(d => d.Address.ZipCode))

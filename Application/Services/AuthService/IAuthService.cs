@@ -13,5 +13,6 @@ namespace Application.Services.AuthService
         Task<AccessToken> CreateAccessTokenAsync(User user);
         Task<RefreshToken> CreateRefreshTokenAsync(User user,string ipAddress);
         Task<RefreshToken> AddRefreshTokenAsync(RefreshToken refreshToken);
+        Task CreateUserDetailAsync(string userId);
     }
 }

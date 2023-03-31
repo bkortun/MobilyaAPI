@@ -12,9 +12,9 @@ namespace Application.Features.Products.Commands.UpdateProduct
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public float Price { get; set; }
         public long Stock { get; set; }
-        public DateTime CreatedDate { get; set; }
         public bool Status { get; set; }
     }
 }

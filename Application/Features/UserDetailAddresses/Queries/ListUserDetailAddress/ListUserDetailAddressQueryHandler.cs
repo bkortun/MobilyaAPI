@@ -28,6 +28,7 @@ namespace Application.Features.UserDetailAddresses.Queries.ListUserDetailAddress
 
         public async Task<ListUserDetailAddressModel> Handle(ListUserDetailAddressQueryRequest request, CancellationToken cancellationToken)
         {
+            //Request'e UserId geliyor.Yani dısardan bi userId geliyor.Bu UserId'nin UserDetail'in UserId'si olduğunu belirtiyoruz.Çünkü UserId UserDetail'e ait bir property
             UserDetail userDetail = await _userDetailRepository.GetAsync(u => u.UserId == Guid.Parse(request.UserId));
             IPaginate<UserDetailAddress> userDetailAddresses = await _userDetailAddressRepository
                 .GetListAsync(predicate:u=>u.UserDetailId == userDetail.Id

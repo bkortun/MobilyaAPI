@@ -31,6 +31,16 @@ namespace Application.Features.Products.Profiles
             CreateMap<Product, DeleteProductDto>().ReverseMap();
 
             CreateMap<Product, ListByIdProductDto>().ReverseMap();
+
+            CreateMap<IPaginate<ProductCategory>, ListProductsByCategoryIdModel>().ReverseMap();
+            CreateMap<ProductCategory, ListProductsByCategoryIdDto>().ForMember(p=>p.Name, opt=>opt.MapFrom(c=>c.Product.Name))
+                                                                    .ForMember(p=>p.CategoryName, opt=>opt.MapFrom(c=>c.Category.Name))
+                                                                    .ForMember(p=>p.Price, opt=>opt.MapFrom(c=>c.Product.Price))
+                                                                    .ForMember(p=>p.Description, opt=>opt.MapFrom(c=>c.Product.Description))
+                                                                    .ForMember(p=>p.ViewCount, opt=>opt.MapFrom(c=>c.Product.ViewCount))
+                                                                    .ForMember(p=>p.LikeCount, opt=>opt.MapFrom(c=>c.Product.LikeCount))
+                                                                    .ForMember(p=>p.Stock, opt=>opt.MapFrom(c=>c.Product.Stock))
+                .ReverseMap();
         }
     }
 }

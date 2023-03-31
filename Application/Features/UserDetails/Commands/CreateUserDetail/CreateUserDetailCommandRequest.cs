@@ -13,12 +13,10 @@ namespace Application.Features.UserDetails.Commands.CreateUserDetail
 {
     public class CreateUserDetailCommandRequest : IRequest<CreateUserDetailDto>
     {
-        //public string FirstName { get; set; }
-        //public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         //public string AddressId { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public bool Gender { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public bool? Gender { get; set; }
         public string UserId { get; set; }
     }
 }

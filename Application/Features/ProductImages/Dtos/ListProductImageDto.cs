@@ -12,6 +12,9 @@ namespace Application.Features.ProductImages.Dtos
         public string ProductId { get; set; }
         public string ProductName { get; set; }
         public float Price { get; set; }
+        public string Description { get; set; }
+        public int ViewCount { get; set; }
+        public int LikeCount { get; set; }
         public long Stock { get; set; }
         public string ImageId { get; set; }
         public string FileId { get; set; }
