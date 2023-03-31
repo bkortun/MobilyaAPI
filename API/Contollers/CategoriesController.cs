@@ -26,9 +26,9 @@ namespace API.Contollers
             return Ok(result);
         }
         [HttpGet("{ProductId}")]
-        public async Task<IActionResult> ListByProductId([FromRoute] PageRequest pageRequest,[FromQuery] string productId)
+        public async Task<IActionResult> ListByProductId([FromQuery] PageRequest pageRequest,[FromRoute] string ProductId)
         {
-            ListCategoryByProductIdQueryRequest request = new() { PageRequest = pageRequest ,ProductId=productId};
+            ListCategoryByProductIdQueryRequest request = new() { PageRequest = pageRequest ,ProductId=ProductId};
             ListCategoryByProductIdModel result =await Mediator.Send(request);
             return Ok(result);
         }

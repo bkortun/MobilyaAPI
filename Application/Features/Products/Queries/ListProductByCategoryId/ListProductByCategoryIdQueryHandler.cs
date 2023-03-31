@@ -18,20 +18,20 @@ namespace Application.Features.Products.Queries.ListProductByCategoryId
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IProductCategoryRepository _productCategoryRepository;
 
-        public ListProductsByCategoryIdQueryHandler(IProductRepository productRepository, IMapper mapper, ICategoryRepository categoryRepository)
+        public ListProductsByCategoryIdQueryHandler(IProductRepository productRepository, IMapper mapper, IProductCategoryRepository productCategoryRepository)
         {
             _productRepository = productRepository;
             _mapper = mapper;
-            _categoryRepository = categoryRepository;
+            _productCategoryRepository = productCategoryRepository;
         }
 
         public async Task<ListProductsByCategoryIdModel> Handle(ListProductsByCategoryIdQueryRequest request, CancellationToken cancellationToken)
         {
-            Category category = await _categoryRepository.GetAsync(c => c.Id == Guid.Parse(request.CategoryId));
-            IPaginate<Product> products = await _productRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
-            ListProductsByCategoryIdModel listByCategoryId = _mapper.Map<ListProductsByCategoryIdModel>(products);
+            IPaginate<ProductCategory> productCategories = await _productCategoryRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize
+            ,predicate:c=>c.CategoryId == Guid.Parse(request.CategoryId),include:p=>p.Include(d=>d.Product).Include(k=>k.Category));
+            ListProductsByCategoryIdModel listByCategoryId = _mapper.Map<ListProductsByCategoryIdModel>(productCategories);
             return listByCategoryId;
         }
     }

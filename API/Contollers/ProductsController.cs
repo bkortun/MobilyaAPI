@@ -12,6 +12,7 @@ using Application.Features.Products.Models;
 using Application.Features.Products.Queries;
 using Application.Features.Products.Queries.ListByIdProduct;
 using Application.Features.Products.Queries.ListDynamicProduct;
+using Application.Features.Products.Queries.ListProductByCategoryId;
 using Core.Application.Requests;
 using Core.Persistence.Dynamic;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,13 @@ namespace API.Contollers
         public async Task<IActionResult> ListById([FromRoute] ListByIdProductQueryRequest request)
         {
             ListByIdProductDto result = await Mediator.Send(request);
+            return Ok(result);
+        }
+        [HttpGet("[action]/{CategoryId}")]
+        public async Task<IActionResult> ListByCategoryId([FromQuery] PageRequest pageRequest, [FromRoute] string CategoryId)
+        {
+            ListProductsByCategoryIdQueryRequest request = new() { PageRequest = pageRequest,CategoryId = CategoryId};
+            ListProductsByCategoryIdModel result = await Mediator.Send(request);
             return Ok(result);
         }
 
