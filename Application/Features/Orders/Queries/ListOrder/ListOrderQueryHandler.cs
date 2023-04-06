@@ -26,7 +26,9 @@ namespace Application.Features.Orders.Queries.ListOrder
 
         public async Task<ListOrderModel> Handle(ListOrderQueryRequest request, CancellationToken cancellationToken)
         {
-           IPaginate<Order> order= await _orderRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize, include: p => p.Include(p => p.Basket));
+           IPaginate<Order> order= await _orderRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize
+                                                                        ,include: p => p.Include(p => p.Basket)
+                                                                        .ThenInclude(u=>u.User));
            ListOrderModel listOrderModel = _mapper.Map<ListOrderModel>(order);
             return listOrderModel;
         }

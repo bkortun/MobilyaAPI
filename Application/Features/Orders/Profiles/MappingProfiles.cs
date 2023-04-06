@@ -27,8 +27,16 @@ namespace Application.Features.Orders.Profiles
             CreateMap<UpdateOrderDto, Order>().ReverseMap();
             CreateMap<UpdateOrderCommandRequest, Order>().ReverseMap();
 
-            CreateMap<Order, ListOrderDto>().ForMember(c=>c.BasketId,opt=>opt.MapFrom(c=>c.Basket.Id)).ReverseMap();
+            CreateMap<Order, ListOrderDto>().ForMember(c=>c.BasketId,opt=>opt.MapFrom(c=>c.Basket.Id))
+                                            .ForMember(f=>f.FirstName, opt=>opt.MapFrom(n=>n.Basket.User.FirstName))
+                                            .ForMember(l=>l.LastName, opt=>opt.MapFrom(t=>t.Basket.User.LastName))
+                                            .ForMember(l=>l.TotalPrice, opt=>opt.MapFrom(t=>t.Basket.TotalPrice))
+                                            .ForMember(l=>l.TotalProduct, opt=>opt.MapFrom(t=>t.Basket.TotalProduct))
+                                            .ReverseMap();
             CreateMap<ListOrderModel, IPaginate<Order>>().ReverseMap();
+
+            CreateMap<Order, IsCompletedOrderDto>().ForMember(c=>c.OrderId, opt =>opt.MapFrom(c=>c.Id)).ReverseMap();
+            CreateMap<Order, IsCanceledOrderDto>().ForMember(c => c.OrderId, opt => opt.MapFrom(c => c.Id)).ReverseMap();
         }
     }
 }

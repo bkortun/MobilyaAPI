@@ -1,6 +1,8 @@
 ﻿using Application.Features.Orders.Commands.CreateOrder;
 using Application.Features.Orders.Commands.DeleteOrder;
 using Application.Features.Orders.Commands.UpdateOrder;
+using Application.Features.Orders.Commands.UpdateOrder.IsCancel;
+using Application.Features.Orders.Commands.UpdateOrder.IsComplete;
 using Application.Features.Orders.Dtos;
 using Application.Features.Orders.Models;
 using Application.Features.Orders.Queries.ListOrder;
@@ -22,6 +24,18 @@ namespace API.Contollers
                 PageRequest = pageRequest,
             };
             ListOrderModel result = await Mediator.Send(request);
+            return Ok(result);
+        }
+        [HttpPut("[action]")]
+        public async Task<IActionResult> IsCompleted([FromBody] IsCompletedOrderCommandRequest request)
+        {
+            IsCompletedOrderDto result = await Mediator.Send(request);
+            return Ok(result);
+        }
+        [HttpPut("[action]")]
+        public async Task<IActionResult> IsCanceled([FromBody] IsCanceledOrderCommandRequest request)
+        {
+            IsCanceledOrderDto result =await Mediator.Send(request);
             return Ok(result);
         }
 

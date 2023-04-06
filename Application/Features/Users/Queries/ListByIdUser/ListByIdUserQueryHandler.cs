@@ -25,7 +25,7 @@ namespace Application.Features.Users.Queries.ListByIdUser
         public async Task<ListByIdUserDto> Handle(ListByIdUserQueryRequest request, CancellationToken cancellationToken)
         {
             //Todo Business rules will add
-            User user = await _userRepository.GetAsync(u => u.Id == Guid.Parse(request.Id));
+            User user = await _userRepository.GetAsync(u => u.Id == Guid.Parse(request.Id));//null check
             ListByIdUserDto listByIdUserDto = _mapper.Map<ListByIdUserDto>(user);
             return listByIdUserDto;
         }

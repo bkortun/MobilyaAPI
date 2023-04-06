@@ -23,7 +23,7 @@ namespace Application.Features.OperationClaims.Commands.DeleteOperationClaim
         }
         public async Task<DeleteOperationClaimDto> Handle(DeleteOperationClaimCommandRequest request, CancellationToken cancellationToken)
         {
-            //Todo entity mevcutmu kontrolü yapılacak
+            //Todo business rule entity mevcutmu kontrolü yapılacak
             OperationClaim operationClaim =await _operationClaimRepository.GetAsync(o=>o.Id==Guid.Parse(request.Id));
             OperationClaim deletedOperationClaim=await _operationClaimRepository.DeleteAsync(operationClaim);
             DeleteOperationClaimDto deleteOperationClaimDto =_mapper.Map<DeleteOperationClaimDto>(operationClaim);

@@ -31,7 +31,6 @@ namespace Application.Features.Files.Commands.DeleteFile
 
         public async Task<DeleteFileDto> Handle(DeleteFileCommandRequest request, CancellationToken cancellationToken)
         {
-            //todo Requesten file id alındı 
             Domain.Entities.File file = await _businessRules.CheckRequestedFilesNotNull(request.FileId);
             Domain.Entities.File deletedFile = await _fileRepository.DeleteAsync(file);
             await _storageService.DeleteFileAsync(file.Path, file.Name);

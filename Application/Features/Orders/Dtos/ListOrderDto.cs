@@ -10,5 +10,9 @@ namespace Application.Features.Orders.Dtos
     {
         public string Id { get; set; }
         public string BasketId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public float TotalPrice { get; set; }
+        public int TotalProduct { get; set; }
     }
 }

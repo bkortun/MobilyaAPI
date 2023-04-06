@@ -209,6 +209,8 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
+                a.Property(p => p.IsComplete).HasColumnName("IsComplete").HasDefaultValue(false);
+                a.Property(p => p.IsCancel).HasColumnName("IsCancel").HasDefaultValue(false);
                 a.HasOne(p => p.Basket).WithOne(p => p.Order).HasForeignKey<Order>(p => p.BasketId);
             });
             //Ef Core, her tablonun default olarak bir primary key kolonu olması gerektiğini kabul eder.

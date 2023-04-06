@@ -30,7 +30,7 @@ namespace Application.Features.Campaigns.Query.ListCampaignImage
 
         public async Task<ListCampaignImageModel> Handle(ListCampaignImageQueryRequest request, CancellationToken cancellationToken)
         {
-            //Todo nullcheck and refactor
+            //Todo business rule nullcheck and refactor
             Image image = await _imageRepository.GetAsync(i => i.Campaign.Id == Guid.Parse(request.CampaignId));
             Domain.Entities.File file = await _fileRepository.GetAsync(f => f.Id == image.FileId);
             ListCampaignImageDto listCampaignImageDto = new()
