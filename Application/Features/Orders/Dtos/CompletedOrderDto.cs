@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Orders.Dtos
 {
-    public class IsCanceledOrderDto
+    public class CompletedOrderDto
     {
         public string OrderId { get; set; }
     }

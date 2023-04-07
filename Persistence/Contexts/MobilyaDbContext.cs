@@ -209,12 +209,11 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.Property(p => p.IsComplete).HasColumnName("IsComplete").HasDefaultValue(false);
-                a.Property(p => p.IsCancel).HasColumnName("IsCancel").HasDefaultValue(false);
+                a.Property(p => p.Complete).HasColumnName("Complete").HasDefaultValue(false);
+                a.Property(p => p.Cancel).HasColumnName("Cancel").HasDefaultValue(false);
                 a.HasOne(p => p.Basket).WithOne(p => p.Order).HasForeignKey<Order>(p => p.BasketId);
             });
-            //Ef Core, her tablonun default olarak bir primary key kolonu olması gerektiğini kabul eder.
-            //Dolayısıyla en az bir property olması gerekiyor.
+
             modelBuilder.Entity<Campaign>(a =>
             {
                 a.ToTable("Campaigns").HasKey(k => k.Id);
@@ -255,7 +254,7 @@ namespace Persistence.Contexts
                 a.Property(p => p.City).HasColumnName("City");
                 a.Property(p => p.District).HasColumnName("District");
                 a.Property(p => p.Neighbourhood).HasColumnName("Neighbourhood");
-                a.Property(p => p.ZipCode).HasColumnName("ZipCode");//posta kodu
+                a.Property(p => p.ZipCode).HasColumnName("ZipCode");
                 a.Property(p => p.Country).HasColumnName("Country");
                 a.HasMany(p => p.UserDetailAddresses).WithOne(p => p.Address).HasForeignKey(p => p.AddressId);
             });

@@ -14,5 +14,8 @@ namespace Application.Features.Orders.Dtos
         public string LastName { get; set; }
         public float TotalPrice { get; set; }
         public int TotalProduct { get; set; }
+        public bool Completed { get; set; }
+        public bool Canceled { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

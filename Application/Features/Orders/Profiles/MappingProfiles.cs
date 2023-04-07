@@ -35,8 +35,8 @@ namespace Application.Features.Orders.Profiles
                                             .ReverseMap();
             CreateMap<ListOrderModel, IPaginate<Order>>().ReverseMap();
 
-            CreateMap<Order, IsCompletedOrderDto>().ForMember(c=>c.OrderId, opt =>opt.MapFrom(c=>c.Id)).ReverseMap();
-            CreateMap<Order, IsCanceledOrderDto>().ForMember(c => c.OrderId, opt => opt.MapFrom(c => c.Id)).ReverseMap();
+            CreateMap<Order, CompletedOrderDto>().ForMember(c=>c.OrderId, opt =>opt.MapFrom(c=>c.Id)).ReverseMap();
+            CreateMap<Order, CanceledOrderDto>().ForMember(c => c.OrderId, opt => opt.MapFrom(c => c.Id)).ReverseMap();
         }
     }
 }

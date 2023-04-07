@@ -1,8 +1,8 @@
 ﻿using Application.Features.Orders.Commands.CreateOrder;
 using Application.Features.Orders.Commands.DeleteOrder;
 using Application.Features.Orders.Commands.UpdateOrder;
-using Application.Features.Orders.Commands.UpdateOrder.IsCancel;
-using Application.Features.Orders.Commands.UpdateOrder.IsComplete;
+using Application.Features.Orders.Commands.CanceledOrder;
+using Application.Features.Orders.Commands.CompletedOrder;
 using Application.Features.Orders.Dtos;
 using Application.Features.Orders.Models;
 using Application.Features.Orders.Queries.ListOrder;
@@ -27,15 +27,15 @@ namespace API.Contollers
             return Ok(result);
         }
         [HttpPut("[action]")]
-        public async Task<IActionResult> IsCompleted([FromBody] IsCompletedOrderCommandRequest request)
+        public async Task<IActionResult> IsCompleted([FromQuery] CompletedOrderCommandRequest request)
         {
-            IsCompletedOrderDto result = await Mediator.Send(request);
+            CompletedOrderDto result = await Mediator.Send(request);
             return Ok(result);
         }
         [HttpPut("[action]")]
-        public async Task<IActionResult> IsCanceled([FromBody] IsCanceledOrderCommandRequest request)
+        public async Task<IActionResult> IsCanceled([FromQuery] CanceledOrderCommandRequest request)
         {
-            IsCanceledOrderDto result =await Mediator.Send(request);
+            CanceledOrderDto result =await Mediator.Send(request);
             return Ok(result);
         }
 

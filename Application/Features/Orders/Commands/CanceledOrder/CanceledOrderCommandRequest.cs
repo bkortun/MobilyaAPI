@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Orders.Commands.UpdateOrder.IsCancel
+namespace Application.Features.Orders.Commands.CanceledOrder
 {
-    public class IsCanceledOrderCommandRequest:IRequest<IsCanceledOrderDto>
+    public class CanceledOrderCommandRequest : IRequest<CanceledOrderDto>
     {
         public string OrderId { get; set; }
     }

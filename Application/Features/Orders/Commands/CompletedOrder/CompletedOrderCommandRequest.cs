@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Orders.Commands.UpdateOrder.IsComplete
+namespace Application.Features.Orders.Commands.CompletedOrder
 {
-    public class IsCompletedOrderCommandRequest:IRequest<IsCompletedOrderDto>
+    public class CompletedOrderCommandRequest : IRequest<CompletedOrderDto>
     {
         public string OrderId { get; set; }
     }

@@ -9,24 +9,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Orders.Commands.UpdateOrder.IsCancel
+namespace Application.Features.Orders.Commands.CompletedOrder
 {
-    public class IsCanceledOrderCommandHandler : IRequestHandler<IsCanceledOrderCommandRequest, IsCanceledOrderDto>
+    public class CompletedOrderCommandHandler : IRequestHandler<CompletedOrderCommandRequest, CompletedOrderDto>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
 
-        public IsCanceledOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper)
+        public CompletedOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
         }
 
-        public async Task<IsCanceledOrderDto> Handle(IsCanceledOrderCommandRequest request, CancellationToken cancellationToken)
+        public async Task<CompletedOrderDto> Handle(CompletedOrderCommandRequest request, CancellationToken cancellationToken)
         {
             Order order = await _orderRepository.GetAsync(predicate: c => c.Id == Guid.Parse(request.OrderId));
-            order.IsCancel = true;
-            IsCanceledOrderDto dto = _mapper.Map<IsCanceledOrderDto>(order);
+            order.Complete = true;
+            Order updatedOrder = await _orderRepository.UpdateAsync(order);
+            CompletedOrderDto dto = _mapper.Map<CompletedOrderDto>(updatedOrder);
             return dto;
         }
     }
