@@ -36,7 +36,6 @@
     <Folder Include="Features\Images\Rules\" />
     <Folder Include="Features\Orders\Rules\" />
     <Folder Include="Features\Products\Contants\" />
-    <Folder Include="Features\Products\Rules\" />
   </ItemGroup>
 
 </Project>

@@ -54,6 +54,8 @@ namespace API.Contollers
         public async Task<IActionResult> Upload([FromQuery] UploadUserDetailCommandRequest request)
         {
             request.ProfilePhoto = Request.Form.Files;
+            if (request.ProfilePhoto.Count == 0)
+                return BadRequest();
             UploadUserDetailDto result = await Mediator.Send(request);
             return Ok(result);
         }

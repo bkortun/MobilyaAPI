@@ -1,4 +1,5 @@
 ﻿using Application.Features.Products.Dtos;
+using Application.Features.Products.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;

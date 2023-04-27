@@ -26,8 +26,13 @@ namespace Application.Features.UserDetails.Queries.ListProfilePhoto
 
         public async Task<ListProfilePhotoModel> Handle(ListProfilePhotoQueryRequest request, CancellationToken cancellationToken)
         {
+            //todo let check this place
             UserDetail userDetail = await _userDetailRepository.GetAsync(u => u.UserId == Guid.Parse(request.UserId));
             Image image = await _imageRepository.GetAsync(i => i.Id == userDetail.ProfilePhotoId);
+            if (image == null)
+            {
+                return null;
+            }
             Domain.Entities.File file = await _fileRepository.GetAsync(f => f.Id == image.FileId);
             ListProfilePhotoDto listProfilePhotoDto = new()
             {

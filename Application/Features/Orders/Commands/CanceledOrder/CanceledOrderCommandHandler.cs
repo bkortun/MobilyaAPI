@@ -24,7 +24,6 @@ namespace Application.Features.Orders.Commands.CanceledOrder
 
         public async Task<CanceledOrderDto> Handle(CanceledOrderCommandRequest request, CancellationToken cancellationToken)
         {
-            //Todo dosya adları ve konumu düzeltilecek(IsCancel yerine Cancel yazılacak)
             Order order = await _orderRepository.GetAsync(predicate: c => c.Id == Guid.Parse(request.OrderId));
             order.Cancel = true;
             Order updatedOrder = await _orderRepository.UpdateAsync(order);
