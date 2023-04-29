@@ -1,6 +1,7 @@
 ﻿using Application.Features.Products.Commands.DeleteProduct;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.BusinessRules;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -11,23 +12,15 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.Rules
 {
-    public class ProductBusinessRules
+    public class ProductBusinessRules:BaseBusinessRules<IProductRepository,Product>
     {
         private readonly IProductRepository _productRepository;
-        public ProductBusinessRules(IProductRepository productRepository)
+        public ProductBusinessRules(IProductRepository productRepository):base(productRepository) 
         {
             _productRepository = productRepository;
         }
 
-        public async Task<Product> CheckRequestedProductIsNotNull(string productId)
-        {
-            Product? product = await _productRepository.GetAsync(predicate: p => p.Id == Guid.Parse(productId));
-            if (product == null)
-            {
-                throw new Exception("Böyle bir ürün mevcut değil!");
-            }
-            return product;
-        }
+        
     }
 }
 

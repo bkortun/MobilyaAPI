@@ -1,4 +1,5 @@
 ﻿using Application.Features.Products.Dtos;
+using Application.Features.Products.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -15,17 +16,20 @@ namespace Application.Features.Products.Commands.UpdateProduct
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
+        private readonly ProductBusinessRules _businessRules;
 
-        public UpdateProductCommandHandler(IProductRepository productRepository, IMapper mapper)
+        public UpdateProductCommandHandler(IProductRepository productRepository, IMapper mapper, ProductBusinessRules businessRules)
         {
             _productRepository = productRepository;
             _mapper = mapper;
+            _businessRules = businessRules;
         }
 
         public async Task<UpdateProductDto> Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
         {
-            //Todo Şuanki sistemde update işlemi yapılacak iken tüm proplar requestten alınmalı, nullable özelliği yapılıcak
-            Product product = _mapper.Map<Product>(request);
+            //Todo Şuanki sistemde update işlemi yapılacak iken tüm proplar requestten alınmalı, nullable özelliği yapılıcak.
+            Product checkedProduct = await _businessRules.CheckRequestedIsNotNull(request.Id);
+            Product product = _mapper.Map<Product>(checkedProduct);
             Product updatedProduct = await _productRepository.UpdateAsync(product);
             UpdateProductDto updateProductDto = _mapper.Map<UpdateProductDto>(updatedProduct);
             return updateProductDto;

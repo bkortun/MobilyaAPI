@@ -30,7 +30,7 @@ namespace Application.Features.Products.Commands.DeleteProduct
             //Todo entity mevcut mu, kontrolü yapılacak
             //Product product = await _productRepository.GetAsync(p => p.Id == Guid.Parse(request.Id));
 
-            Product checkedProduct = await _productBusinessRules.CheckRequestedProductIsNotNull(request.Id);
+            Product checkedProduct = await _productBusinessRules.CheckRequestedIsNotNull(request.Id);
 
             Product deletedProduct=await _productRepository.DeleteAsync(checkedProduct);
             DeleteProductDto deleteProductDto = _mapper.Map<DeleteProductDto>(deletedProduct);

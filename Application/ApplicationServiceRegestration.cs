@@ -1,5 +1,6 @@
 ﻿using Application.Features.BasketItems.Rules;
 using Application.Features.Files.Rules;
+using Application.Features.Orders.Rules;
 using Application.Features.ProductImages.Rules;
 using Application.Features.Products.Rules;
 using Application.Features.Users.Rules;
@@ -27,6 +28,7 @@ namespace Application
             services.AddScoped<UserBusinessRules>();
             services.AddScoped<ProductImageBusinessRules>();
             services.AddScoped<ProductBusinessRules>();
+            services.AddScoped<OrderBusinessRules>();
             services.AddScoped<BasketItemBusinessRules>();
             services.AddScoped<FileBusinessRules>();
 
