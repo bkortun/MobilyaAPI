@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(MobilyaDbContext))]
-    [Migration("20230327111739_mig_4")]
-    partial class mig_4
+    [Migration("20230513152052_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -514,6 +514,18 @@ namespace Persistence.Migrations
                     b.Property<Guid>("BasketId")
                         .HasColumnType("uuid")
                         .HasColumnName("BasketId");
+
+                    b.Property<bool>("Cancel")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Cancel");
+
+                    b.Property<bool>("Complete")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Complete");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")

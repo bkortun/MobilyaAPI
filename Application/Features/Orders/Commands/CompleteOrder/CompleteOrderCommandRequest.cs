@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Orders.Commands.CompletedOrder
 {
-    public class CompletedOrderCommandRequest : IRequest<CompletedOrderDto>
+    public class CompleteOrderCommandRequest : IRequest<CompleteOrderDto>
     {
         public string OrderId { get; set; }
     }

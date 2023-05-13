@@ -11,8 +11,8 @@ namespace Domain.Entities
     {
         public Guid BasketId { get; set; }
         public virtual Basket Basket { get; set; }
-        public bool Complete { get; set; }
-        public bool Cancel { get; set; }
+        public bool IsCompleted { get; set; }
+        public bool IsCanceled { get; set; }
 
     }
 }

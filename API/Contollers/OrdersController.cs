@@ -9,6 +9,7 @@ using Application.Features.Orders.Queries.ListOrder;
 using Core.Application.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Orders.Queries.ListByUserId;
 
 namespace API.Contollers
 {
@@ -26,16 +27,24 @@ namespace API.Contollers
             ListOrderModel result = await Mediator.Send(request);
             return Ok(result);
         }
-        [HttpPut("[action]")]
-        public async Task<IActionResult> IsCompleted([FromQuery] CompletedOrderCommandRequest request)
+
+        [HttpGet("[action]/{UserId}")]
+        public async Task<IActionResult> ListByUserId([FromRoute] ListByUserIdOrderQueryRequest request)
         {
-            CompletedOrderDto result = await Mediator.Send(request);
+            ListByUserIdOrderModel result = await Mediator.Send(request);
+            return Ok(result);
+        }
+
+        [HttpPut("[action]")]
+        public async Task<IActionResult> Complete([FromQuery] CompleteOrderCommandRequest request)
+        {
+            CompleteOrderDto result = await Mediator.Send(request);
             return Ok(result);
         }
         [HttpPut("[action]")]
-        public async Task<IActionResult> IsCanceled([FromQuery] CanceledOrderCommandRequest request)
+        public async Task<IActionResult> Cancel([FromQuery] CancelOrderCommandRequest request)
         {
-            CanceledOrderDto result =await Mediator.Send(request);
+            CancelOrderDto result =await Mediator.Send(request);
             return Ok(result);
         }
 

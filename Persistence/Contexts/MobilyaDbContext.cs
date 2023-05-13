@@ -209,8 +209,8 @@ namespace Persistence.Contexts
                 a.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
                 a.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
                 a.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
-                a.Property(p => p.Complete).HasColumnName("Complete").HasDefaultValue(false);
-                a.Property(p => p.Cancel).HasColumnName("Cancel").HasDefaultValue(false);
+                a.Property(p => p.IsCompleted).HasColumnName("IsCompleted").HasDefaultValue(false);
+                a.Property(p => p.IsCanceled).HasColumnName("IsCanceled").HasDefaultValue(false);
                 a.HasOne(p => p.Basket).WithOne(p => p.Order).HasForeignKey<Order>(p => p.BasketId);
             });
 

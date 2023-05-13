@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Orders.Commands.CanceledOrder
 {
-    public class CanceledOrderCommandRequest : IRequest<CanceledOrderDto>
+    public class CancelOrderCommandRequest : IRequest<CancelOrderDto>
     {
         public string OrderId { get; set; }
     }

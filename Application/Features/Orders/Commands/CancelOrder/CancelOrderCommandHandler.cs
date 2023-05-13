@@ -11,23 +11,23 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Orders.Commands.CanceledOrder
 {
-    public class CanceledOrderCommandHandler : IRequestHandler<CanceledOrderCommandRequest, CanceledOrderDto>
+    public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommandRequest, CancelOrderDto>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
 
-        public CanceledOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper)
+        public CancelOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
         }
 
-        public async Task<CanceledOrderDto> Handle(CanceledOrderCommandRequest request, CancellationToken cancellationToken)
+        public async Task<CancelOrderDto> Handle(CancelOrderCommandRequest request, CancellationToken cancellationToken)
         {
             Order order = await _orderRepository.GetAsync(predicate: c => c.Id == Guid.Parse(request.OrderId));
-            order.Cancel = true;
+            order.IsCanceled = true;
             Order updatedOrder = await _orderRepository.UpdateAsync(order);
-            CanceledOrderDto dto = _mapper.Map<CanceledOrderDto>(updatedOrder);
+            CancelOrderDto dto = _mapper.Map<CancelOrderDto>(updatedOrder);
             return dto;
         }
     }
