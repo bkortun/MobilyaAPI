@@ -28,8 +28,8 @@ namespace Application.Features.Products.Commands.UpdateProduct
         public async Task<UpdateProductDto> Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
         {
             //Todo Şuanki sistemde update işlemi yapılacak iken tüm proplar requestten alınmalı, nullable özelliği yapılıcak.
-            Product checkedProduct = await _businessRules.CheckRequestedIsNotNull(request.Id);
-            Product product = _mapper.Map<Product>(checkedProduct);
+            //await _businessRules.CheckRequestedIsNotNull(request.Id);
+            Product product = _mapper.Map<Product>(request);
             Product updatedProduct = await _productRepository.UpdateAsync(product);
             UpdateProductDto updateProductDto = _mapper.Map<UpdateProductDto>(updatedProduct);
             return updateProductDto;

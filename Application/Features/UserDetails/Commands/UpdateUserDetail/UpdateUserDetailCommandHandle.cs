@@ -26,7 +26,8 @@ namespace Application.Features.UserDetails.Commands.UpdateUserDetail
 
         public async Task<UpdateUserDetailDto> Handle(UpdateUserDetailCommandRequest request, CancellationToken cancellationToken)
         {
-            
+            //Todo bu refactor edilecek
+            if (request.ProfilePhotoId == "") request.ProfilePhotoId = null;
             UserDetail userDetail = _mapper.Map<UserDetail>(request);
             UserDetail UpdatedUserDetail = await _userDetailRepository.UpdateAsync(userDetail);
             UpdateUserDetailDto dto = _mapper.Map<UpdateUserDetailDto>(UpdatedUserDetail);
