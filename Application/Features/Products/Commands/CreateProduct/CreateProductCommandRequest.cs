@@ -7,15 +7,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Application.Pipelines.Caching;
 
 namespace Application.Features.Products.Commands.CreateProduct
 {
-    public class CreateProductCommandRequest:IRequest<CreateProductDto>,ISecuredRequest
+    public class CreateProductCommandRequest:IRequest<CreateProductDto>,ICacheRemoverRequest//,ISecuredRequest
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public float Price { get; set; }
         public long Stock { get; set; }
-        public string[] Roles => new[] { Admin, Add_Product };
+
+        public bool BypassCache { get; }
+
+        public string CacheKey => "product-list";
+        // public string[] Roles => new[] { Admin, Add_Product };
     }
 }

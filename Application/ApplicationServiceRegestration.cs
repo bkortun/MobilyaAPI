@@ -8,6 +8,8 @@ using Application.Features.Users.Rules;
 using Application.Services.AuthService;
 using Application.Services.BasketService;
 using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Caching;
+using Core.Caching;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -36,6 +38,9 @@ namespace Application
 
 
             services.AddTransient(typeof(IPipelineBehavior<,>),typeof(AuthorizationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CacheRemovingBehavior<,>));
+
 
 
             services.AddScoped<IAuthService,AuthManager>();

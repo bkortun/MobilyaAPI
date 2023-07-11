@@ -21,6 +21,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSecurityServices();
+
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddCacheServices();
 
 builder.Services.AddApplicationServices();
