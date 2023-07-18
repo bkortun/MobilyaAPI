@@ -1,61 +1,30 @@
-﻿using ServiceStack.Redis;
+﻿using Core.Application.Pipelines.Caching;
+using StackExchange.Redis;
+using StackExchange.Redis.Extensions.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ServiceStack.Diagnostics.Events;
 
 namespace Core.Caching.Redis
 {
-    public class RedisCacheManager : ICacheManager
+    public class RedisCacheManager
     {
-        private readonly RedisEndpoint _redisEndpoint;
+        private ConnectionMultiplexer _connectionMultiplexer;
+        private readonly RedisSettings _redisSettings;
+        private readonly CacheSettings _cacheSettings;
 
-        public RedisCacheManager()
+        public RedisCacheManager(ConnectionMultiplexer connectionMultiplexer)
         {
-            _redisEndpoint = new RedisEndpoint("localhost", 6379);
-        }
-        private void RedisInvoker(Action<RedisClient> redisAction)
-        {
-            using var client = new RedisClient(_redisEndpoint);
-            redisAction.Invoke(client);
+            _connectionMultiplexer = connectionMultiplexer;
         }
 
-        public void Add(string key, object value, int duration)
+        private void Connect()
         {
-            RedisInvoker(x => x.Add(key, value, TimeSpan.FromMinutes(duration)));
-        }
-
-        public T Get<T>(string key)
-        {
-            var result = default(T);
-            RedisInvoker(x => { result = x.Get<T>(key); });
-            return result;
-        }
-
-        public object Get(string key)
-        {
-            var result = default(object);
-            RedisInvoker(x => { result = x.Get<object>(key); });
-            return result;
-
-        }
-
-        public bool IsAdd(string key)
-        {
-            var isAdded = false;
-            RedisInvoker(x => isAdded = x.ContainsKey(key));
-            return isAdded;
-        }
-
-        public void Remove(string key)
-        {
-            RedisInvoker(x => x.Remove(key));
-        }
-
-        public void RemoveByPattern(string pattern)
-        {
-            RedisInvoker(x => x.RemoveByPattern($"*{pattern}*"));
+            var configString = $"{_redisHost}:{_redisPort}";
+            _redis = ConnectionMultiplexer.Connect(configString);
         }
     }
 }

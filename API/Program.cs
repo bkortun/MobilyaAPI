@@ -21,13 +21,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSecurityServices();
-
-builder.Services.AddDistributedMemoryCache();
 builder.Services.AddCacheServices();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddPersistenceServices();
+
+//StackExchange DistributedCache
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "localhost:6379";
+});
 
 builder.Services.AddStorage<LocalStorageManager>();
 builder.Services.AddHttpContextAccessor();

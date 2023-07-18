@@ -18,9 +18,9 @@ namespace Application.Features.Products.Queries
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        private readonly ICacheManager _cacheManager;
+        private readonly ICacheService _cacheManager;
 
-        public ListProductQueryHandler(IProductRepository productRepository, IMapper mapper, ICacheManager cacheManager)
+        public ListProductQueryHandler(IProductRepository productRepository, IMapper mapper, ICacheService cacheManager)
         {
             _productRepository = productRepository;
             _mapper = mapper;

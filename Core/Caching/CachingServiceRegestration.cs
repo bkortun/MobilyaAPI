@@ -15,8 +15,10 @@ namespace Core.Caching
         public static void AddCacheServices(this IServiceCollection services)
         {
             services.AddMemoryCache();
-           // services.AddSingleton<ICacheManager, MemoryCacheManager>();
-            services.AddSingleton<ICacheManager, RedisCacheManager>();
+            // services.AddSingleton<ICacheManager, MemoryCacheManager>();
+            services.AddSingleton<ICacheService, DistributedCacheManager>();
+            //services.AddSingleton<ICacheManager, RedisCacheManager>();
+
         }
     }
 }

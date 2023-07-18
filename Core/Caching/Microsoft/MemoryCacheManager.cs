@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.Caching.Microsoft
 {
-    public class MemoryCacheManager : ICacheManager
+    public class MemoryCacheManager : ICacheService
     {
 
         private IMemoryCache _memoryCache;
@@ -28,7 +28,7 @@ namespace Core.Caching.Microsoft
             return _memoryCache.Get<T>(key);
         }
 
-        public object Get(string key)
+        public object Get(string key)//tip dönüşümleri casting veya Convert sınıf ile manuel yapılır.
         {
             return _memoryCache.Get(key);
         }
