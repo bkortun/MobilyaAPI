@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Core.Caching;
+using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -16,10 +17,10 @@ namespace Core.Application.Pipelines.Caching
     {
         //IDistributedCache program.cs'de service olarak eklenmeli
         //CacheSettings ve appSettings.json süreyi tutuyor
-        private readonly IDistributedCache _cache;
+        private readonly ICacheService _cache;
         private readonly CacheSettings _cacheSettings;
 
-        public CachingBehavior(IDistributedCache cache, IConfiguration configuration)
+        public CachingBehavior(ICacheService cache, IConfiguration configuration)
         {
             _cache = cache;
             _cacheSettings = configuration.GetSection("CacheSettings").Get<CacheSettings>();
@@ -34,7 +35,7 @@ namespace Core.Application.Pipelines.Caching
                 return await next();
 
             //Gelen key'de değer var mı
-            byte[]? cachedResponse = await _cache.GetAsync(request.CacheKey, cancellationToken);
+            byte[]? cachedResponse = await _cache.GetAsync(request.CacheKey);
             if (cachedResponse != null)
             {
                 //varsa stringe çevir
@@ -59,7 +60,7 @@ namespace Core.Application.Pipelines.Caching
             //response byte'a çeviriliyor
             byte[] serializedData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(response));
             //cache ekleme işlemi
-            await _cache.SetAsync(request.CacheKey, serializedData, distributedCacheEntryOptions, cancellationToken);
+            await _cache.AddAsync(request.CacheKey, serializedData,0);
             return response;
         }
     }

@@ -18,9 +18,10 @@ namespace Core.Caching.Microsoft
             _distributedCache = distributedCache;
         }
 
-        public async Task AddAsync(string key, byte[] value, DistributedCacheEntryOptions options)
+        public async Task AddAsync(string key, byte[] value, int duration)
         {
-            await _distributedCache.SetAsync(key, value, options);
+            DistributedCacheEntryOptions options = new();
+            await _distributedCache.SetAsync(key, value,options);
         }
 
         public async Task<byte[]> GetAsync(string key)

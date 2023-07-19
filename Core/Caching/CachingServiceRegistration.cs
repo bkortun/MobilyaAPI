@@ -1,5 +1,6 @@
 ﻿using Core.Caching.Microsoft;
 using Core.Caching.Redis;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -10,12 +11,11 @@ using System.Threading.Tasks;
 
 namespace Core.Caching
 {
-    public static class CachingServiceRegestration
+    public static class CachingServiceRegistration
     {
         public static void AddCacheServices(this IServiceCollection services)
         {
             services.AddMemoryCache();
-            // services.AddSingleton<ICacheManager, MemoryCacheManager>();
             services.AddSingleton<ICacheService, DistributedCacheManager>();
             //services.AddSingleton<ICacheManager, RedisCacheManager>();
 

@@ -18,28 +18,18 @@ namespace Application.Features.Products.Queries
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        private readonly ICacheService _cacheManager;
 
-        public ListProductQueryHandler(IProductRepository productRepository, IMapper mapper, ICacheService cacheManager)
+        public ListProductQueryHandler(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _mapper = mapper;
-            _cacheManager = cacheManager;
         }
 
         public async Task<ListProductModel> Handle(ListProductsQueryRequest request, CancellationToken cancellationToken)
         {
-            if (!_cacheManager.IsAdd("products"))
-            {
-                IPaginate<Product> products = await _productRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
-                ListProductModel getAllProductsModel = _mapper.Map<ListProductModel>(products);
-                _cacheManager.Add("products", getAllProductsModel, 10);
-                return getAllProductsModel;
-            }
-            else
-            {
-                return _cacheManager.Get<ListProductModel>("products");
-            }
+            IPaginate<Product> products = await _productRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
+            ListProductModel getAllProductsModel = _mapper.Map<ListProductModel>(products);
+            return getAllProductsModel;
         }
     }
 }
