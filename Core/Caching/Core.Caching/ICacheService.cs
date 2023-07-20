@@ -8,7 +8,7 @@ namespace Core.Caching
 {
     public interface ICacheService
     {
-        Task AddAsync(string key, byte[] value, int duration);
+        Task AddAsync(string key, byte[] value, TimeSpan? expiringDate);
         Task<byte[]> GetAsync(string key);
         byte[] Get(string key);
         Task<bool> IsAddAsync(string key);

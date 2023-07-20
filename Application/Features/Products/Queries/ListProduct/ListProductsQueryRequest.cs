@@ -17,7 +17,7 @@ namespace Application.Features.Products.Queries
 
         public bool BypassCache { get; }
 
-        public string CacheKey => "product-list";
+        public string CacheKey => $"product-list";
 
         public TimeSpan? SlidingExpiration { get; }
     }

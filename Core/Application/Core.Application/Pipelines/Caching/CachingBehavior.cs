@@ -53,14 +53,12 @@ namespace Core.Application.Pipelines.Caching
         {
             //arka planda repository işleminin tamamlanmasını bekliyor
             TResponse response = await next();
-            //Time span convert işlemi
+            //Time span convert işlemi sliding expiration requestte belirtilmediyse appsettings'den al
             TimeSpan? slidingExpiration = request.SlidingExpiration ?? TimeSpan.FromDays(_cacheSettings.SlidingExpiration);
-            //Cache ayarları veriliyor
-            DistributedCacheEntryOptions distributedCacheEntryOptions = new() { SlidingExpiration = slidingExpiration };
             //response byte'a çeviriliyor
             byte[] serializedData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(response));
             //cache ekleme işlemi
-            await _cache.AddAsync(request.CacheKey, serializedData,0);
+            await _cache.AddAsync(request.CacheKey, serializedData,slidingExpiration);
             return response;
         }
     }

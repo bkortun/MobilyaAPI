@@ -1,18 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
-using ServiceStack;
 using StackExchange.Redis;
-using StackExchange.Redis.Extensions.Core.Configuration;
-using StackExchange.Redis.Extensions.Core.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using static ServiceStack.Diagnostics.Events;
 
 namespace Core.Caching.Redis
 {
-    public class RedisCacheManager:ICacheService
+    public class RedisCacheManager : ICacheService
     {
         private ConnectionMultiplexer _connectionMultiplexer;
         private readonly RedisSettings _redisSettings;
@@ -34,8 +26,9 @@ namespace Core.Caching.Redis
             return ConnectionMultiplexer.Connect(options);
         }
 
-        public async Task AddAsync(string key, byte[] value, int duration)
+        public async Task AddAsync(string key, byte[] value, TimeSpan? expiringDate)
         {
+            await _database.KeyExpireAsync(key, expiringDate);
             await _database.SetAddAsync(key, value);
         }
 
@@ -51,8 +44,8 @@ namespace Core.Caching.Redis
         public byte[] Get(string key)
         {
             var values = _database.SetMembers(key);
-            byte[] bytes =null;
-            values.ToList().ForEach(a => bytes=Encoding.Default.GetBytes(a));
+            byte[] bytes = null;
+            values.ToList().ForEach(a => bytes = Encoding.Default.GetBytes(a));
             return bytes;
         }
 

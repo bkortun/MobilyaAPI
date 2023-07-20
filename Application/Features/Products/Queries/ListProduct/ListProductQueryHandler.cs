@@ -2,7 +2,6 @@
 using Application.Features.Products.Models;
 using Application.Services.Repositories;
 using AutoMapper;
-using Core.Caching;
 using Core.Persistence.Paging;
 using Domain.Entities;
 using MediatR;

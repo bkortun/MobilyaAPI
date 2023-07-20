@@ -27,12 +27,6 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddPersistenceServices();
 
-//StackExchange DistributedCache
-builder.Services.AddStackExchangeRedisCache(options =>
-{
-    options.Configuration = "localhost:6379";
-});
-
 builder.Services.AddStorage<LocalStorageManager>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.WithOrigins("http://localhost:4200").WithOrigins("https://localhost:4200").AllowAnyHeader().AllowAnyMethod()));

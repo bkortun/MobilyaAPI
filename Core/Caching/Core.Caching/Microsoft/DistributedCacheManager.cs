@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceStack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +17,11 @@ namespace Core.Caching.Microsoft
             _distributedCache = distributedCache;
         }
 
-        public async Task AddAsync(string key, byte[] value, int duration)
+        public async Task AddAsync(string key, byte[] value, TimeSpan? expiringDate)
         {
             DistributedCacheEntryOptions options = new();
-            await _distributedCache.SetAsync(key, value,options);
+            options.SlidingExpiration = expiringDate;
+            await _distributedCache.SetAsync(key, value, options);
         }
 
         public async Task<byte[]> GetAsync(string key)
