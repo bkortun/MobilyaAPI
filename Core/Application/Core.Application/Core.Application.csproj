@@ -11,10 +11,12 @@
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.6" />
 		<PackageReference Include="MediatR" Version="10.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-		<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Caching\Core.Caching\Core.Caching.csproj" />
     <ProjectReference Include="..\..\Security\Core.Security\Core.Security.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 using Application;
+using Core.Caching;
 using Core.Security;
 using Core.Security.Encryption;
 using Core.Security.JWT;
@@ -20,6 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSecurityServices();
+builder.Services.AddCacheServices();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();

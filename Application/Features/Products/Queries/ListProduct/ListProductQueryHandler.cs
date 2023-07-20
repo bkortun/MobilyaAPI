@@ -26,7 +26,7 @@ namespace Application.Features.Products.Queries
 
         public async Task<ListProductModel> Handle(ListProductsQueryRequest request, CancellationToken cancellationToken)
         {
-            IPaginate<Product> products = await _productRepository.GetListAsync(index:request.PageRequest.Page,size:request.PageRequest.PageSize);
+            IPaginate<Product> products = await _productRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
             ListProductModel getAllProductsModel = _mapper.Map<ListProductModel>(products);
             return getAllProductsModel;
         }
