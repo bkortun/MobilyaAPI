@@ -3,13 +3,16 @@ using Application.Features.Categories.Rules;
 using Application.Features.Files.Rules;
 using Application.Features.Orders.Rules;
 using Application.Features.ProductImages.Rules;
+using Application.Features.Products.Commands.CreateProduct;
 using Application.Features.Products.Rules;
 using Application.Features.Users.Rules;
 using Application.Services.AuthService;
 using Application.Services.BasketService;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Validation;
 using Core.Caching;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -37,9 +40,11 @@ namespace Application
             services.AddScoped<FileBusinessRules>();
 
 
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>),typeof(AuthorizationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CacheRemovingBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
 
 

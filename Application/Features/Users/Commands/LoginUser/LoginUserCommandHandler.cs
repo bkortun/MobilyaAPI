@@ -31,7 +31,7 @@ namespace Application.Features.Users.Commands.LoginUser
 
         public async Task<LoginUserDto> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
         {
-            //Todo sorulacak burda iki kere _businessRules sınıfından method çağırmak yerine _businessRules sınıfında ikisini içeren bir method yazamak
+            //Todo sorulacak, burda iki kere _businessRules sınıfından method çağırmak yerine _businessRules sınıfında ikisini içeren bir method yazmak
             //daha mı uygun?
             User user = await _businessRules.CheckRequestedEmailWhenLogin(request.UserForLoginDto.Email);
             _businessRules.VerifyPassword(request.UserForLoginDto.Password, user.PasswordHash, user.PasswordSalt);
