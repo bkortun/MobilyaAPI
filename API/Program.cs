@@ -81,7 +81,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors();
+app.UseCors();//Her middleware'in içerisinde next parametresi ile invoke iþlemi gerçekleþtiði için bir sonraki iþlem çaðrýlýr.
 
 app.UseHttpsRedirection();
 
@@ -93,4 +93,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.Run();//next parametresi ile Invoke iþlemi gerçeklesmediði için bir sonraki middleware'i tetiklemez kýsa devre yapar.
