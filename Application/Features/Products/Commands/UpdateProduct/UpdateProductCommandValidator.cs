@@ -17,6 +17,7 @@ namespace Application.Features.Products.Commands.UpdateProduct
             RuleFor(u => u.Description).MinimumLength(8);
             RuleFor(u => u.Price).NotEmpty();
             RuleFor(u => u.Stock).NotEmpty();
+            RuleFor(u => u.Stock).GreaterThanOrEqualTo(0);
         }
     }
 }

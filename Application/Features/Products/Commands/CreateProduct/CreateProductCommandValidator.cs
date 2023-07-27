@@ -17,6 +17,7 @@ namespace Application.Features.Products.Commands.CreateProduct
             RuleFor(p => p.Description).NotEmpty();
             RuleFor(p => p.Price).NotEmpty();
             RuleFor(p => p.Stock).NotEmpty();
+            RuleFor(p => p.Stock).GreaterThanOrEqualTo(0);
 
         }
     }
